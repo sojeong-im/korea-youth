@@ -66,26 +66,186 @@
 <!-- 4. 연혁 -->
         <div class="content-section">
             <h3 class="sub-title">4. 연혁 <small>History</small></h3>
-            <table class="table history-table">
-                <colgroup>
-                    <col style="width: 20%;">
-                    <col style="width: 80%;">
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <th>2025. 12</th>
-                        <td>[안내] 연혁 내용 작성 예시 (예: 제 5회 정기 학술대회 개최)</td>
-                    </tr>
-                    <tr>
-                        <th>2024. 05</th>
-                        <td>[안내] 연혁 내용 작성 예시 (예: 청년 데이터 수집 100만 건 달성)</td>
-                    </tr>
-                    <tr>
-                        <th>2023. 03</th>
-                        <td>[안내] 연혁 내용 작성 예시 (예: 한국청년행동패턴연구소 설립)</td>
-                    </tr>
-                </tbody>
-            </table>
+            
+<style>
+/* Vertical Timeline CSS */
+.history-wrapper {
+    font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    padding: 20px 0 60px 0;
+}
+.timeline-phase {
+    text-align: center;
+    margin: 50px 0 30px 0;
+}
+.timeline-phase span {
+    display: inline-block;
+    background: #004b87;
+    color: #fff;
+    padding: 10px 30px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 15px;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 10px rgba(0, 75, 135, 0.2);
+}
+.timeline-phase p {
+    color: #666;
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    background: #E5E7EB;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -1px;
+}
+.timeline-item {
+    padding: 15px 40px;
+    position: relative;
+    background: inherit;
+    width: 50%;
+}
+.timeline-item.left {
+    left: 0;
+}
+.timeline-item.right {
+    left: 50%;
+}
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    right: -8px;
+    background-color: #fff;
+    border: 4px solid #004b87;
+    top: 30px;
+    border-radius: 50%;
+    z-index: 1;
+}
+.timeline-item.right::after {
+    left: -8px;
+}
+.timeline-content {
+    padding: 25px 30px;
+    background: #fff;
+    position: relative;
+    border-radius: 12px;
+    border: 1px solid #E5E7EB;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+    transition: all 0.3s ease;
+}
+.timeline-content:hover {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transform: translateY(-3px);
+    border-color: #ccc;
+}
+.timeline-date {
+    font-size: 22px;
+    font-weight: 800;
+    color: #004b87;
+    margin-bottom: 12px;
+    font-family: 'Arial', sans-serif;
+    letter-spacing: -0.5px;
+}
+.timeline-text {
+    font-size: 15px;
+    color: #444;
+    line-height: 1.6;
+    word-break: keep-all;
+    font-weight: 500;
+}
+
+/* Responsive adjustment for older bootstrap */
+@media screen and (max-width: 768px) {
+    .timeline::after { left: 31px; }
+    .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+    .timeline-item.right { left: 0%; }
+    .timeline-item.left::after, .timeline-item.right::after { left: 23px; }
+}
+</style>
+
+<div class="history-wrapper">
+    
+    <!-- PHASE 01 -->
+    <div class="timeline-phase">
+        <span>PHASE 01</span>
+        <p>준비 및 연구 기반 구축 (2025 ~ 2026.04)</p>
+    </div>
+    
+    <div class="timeline">
+        <div class="timeline-item left">
+            <div class="timeline-content">
+                <div class="timeline-date">2025.06</div>
+                <div class="timeline-text">한국청년행동패턴 연구소 설립 기획 및 연구 프레임워크 수립</div>
+            </div>
+        </div>
+        <div class="timeline-item right">
+            <div class="timeline-content">
+                <div class="timeline-date">2025.10</div>
+                <div class="timeline-text">청년 다중 불확실성(Multiple Uncertainty) 및 내면 패턴 기초 데이터 수집 착수</div>
+            </div>
+        </div>
+        <div class="timeline-item left">
+            <div class="timeline-content">
+                <div class="timeline-date">2026.01</div>
+                <div class="timeline-text">청년 대인관계·애착 유형 및 경계선(Boundary) 진단 모델 개발</div>
+            </div>
+        </div>
+        <div class="timeline-item right">
+            <div class="timeline-content">
+                <div class="timeline-date">2026.03</div>
+                <div class="timeline-text">청년 6대 핵심 영역(취업·진로·관계·내면 등) 행동 데이터 분석 체계 구축</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PHASE 02 -->
+    <div class="timeline-phase">
+        <span>PHASE 02</span>
+        <p>프로젝트 추진 및 검증 (2026.05 ~ 현재)</p>
+    </div>
+    
+    <div class="timeline">
+        <div class="timeline-item left">
+            <div class="timeline-content">
+                <div class="timeline-date">2026.04</div>
+                <div class="timeline-text">포스트 코로나 '관계적 유기불안' 해체 프로젝트 런칭</div>
+            </div>
+        </div>
+        <div class="timeline-item right">
+            <div class="timeline-content">
+                <div class="timeline-date">2026.05</div>
+                <div class="timeline-text">신입사원 조기 퇴사율 감소를 위한 '온보딩 행동패턴' 재설계 솔루션 개발</div>
+            </div>
+        </div>
+        <div class="timeline-item left">
+            <div class="timeline-content">
+                <div class="timeline-date">2026.07</div>
+                <div class="timeline-text">지자체 연계 청년 고립·은둔 예방 선제적 지원 시스템 구축 및 제안</div>
+            </div>
+        </div>
+        <div class="timeline-item right">
+            <div class="timeline-content">
+                <div class="timeline-date">2026.08</div>
+                <div class="timeline-text">공식 홈페이지 오픈 및 B2G 파트너십 채널 일원화</div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
         </div>
     </div>
 

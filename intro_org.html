@@ -66,17 +66,185 @@
 <!-- 3. 조직도 -->
         <div class="content-section">
             <h3 class="sub-title">3. 조직도 <small>Organization Chart</small></h3>
-            <div class="placeholder-box text-center" style="padding: 50px 20px;">
-                <p class="text-muted">[안내] 이곳에 연구소 조직도 이미지(.jpg 또는 .png)가 들어갈 자리입니다.</p>
-                <div class="org-chart-placeholder">
-                    <span>이사회</span><br>
-                    <span>|</span><br>
-                    <span>원장</span><br>
-                    <span>|</span><br>
-                    <span>[ 연구1팀 ] - [ 연구2팀 ] - [ 데이터분석팀 ] - [ 대외협력팀 ]</span>
-                </div>
-            </div>
+            
+<style>
+/* CSS Org Chart */
+.org-tree-container {
+    display: flex;
+    justify-content: center;
+    padding: 30px 0 60px 0;
+    font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    background-color: #ffffff;
+    overflow-x: auto;
+}
+.org-tree * {
+    margin: 0; padding: 0;
+}
+.org-tree ul {
+    padding-top: 25px; 
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+.org-tree li {
+    float: left; text-align: center;
+    list-style-type: none;
+    position: relative;
+    padding: 25px 15px 0 15px;
+}
+/* Connectors */
+.org-tree li::before, .org-tree li::after {
+    content: '';
+    position: absolute; top: 0; right: 50%;
+    border-top: 1.5px solid #E5E7EB;
+    width: 50%; height: 25px;
+}
+.org-tree li::after {
+    right: auto; left: 50%;
+    border-left: 1.5px solid #E5E7EB;
+}
+.org-tree li:only-child::after, .org-tree li:only-child::before {
+    display: none;
+}
+.org-tree li:only-child {
+    padding-top: 0;
+}
+.org-tree li:first-child::before, .org-tree li:last-child::after {
+    border: 0 none;
+}
+.org-tree li:last-child::before {
+    border-right: 1.5px solid #E5E7EB;
+    border-radius: 0 4px 0 0;
+}
+.org-tree li:first-child::after {
+    border-radius: 4px 0 0 0;
+}
+/* Downward connectors */
+.org-tree ul ul::before {
+    content: '';
+    position: absolute; top: 0; left: 50%;
+    border-left: 1.5px solid #E5E7EB;
+    width: 0; height: 25px;
+    margin-left: -0.75px;
+}
+/* Cards */
+.org-tree .org-card {
+    border: 1px solid #D9D9D9;
+    padding: 16px 24px;
+    display: inline-block;
+    border-radius: 12px;
+    background-color: #fff;
+    color: #333;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    transition: all 0.3s ease;
+    min-width: 120px;
+    position: relative;
+    z-index: 2;
+}
+.org-tree .org-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    transform: translateY(-3px);
+    border-color: #ccc;
+    color: #004b87;
+}
+.org-tree .org-card.main-head {
+    font-weight: 700;
+    font-size: 16px;
+    padding: 18px 30px;
+}
+.org-tree .org-card.sub-head {
+    background-color: #fcfcfc;
+}
+.org-tree .org-card.small-card {
+    padding: 12px 18px;
+    font-size: 14px;
+    min-width: 90px;
+}
+
+/* Wing connections for Row 1 */
+.wing-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    position: relative;
+    margin-bottom: 25px;
+}
+.wing-connector {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    height: 1.5px;
+    background-color: #E5E7EB;
+    z-index: 1;
+}
+.wing-line-down {
+    width: 1.5px;
+    height: 25px;
+    background-color: #E5E7EB;
+    margin: 0 auto;
+}
+</style>
+
+<div class="org-tree-container">
+    <div class="org-tree">
+        <div class="wing-container" style="width: 600px; margin: 0 auto;">
+            <div class="wing-connector"></div>
+            <div class="org-card small-card" style="margin-right: auto;">자문교수단</div>
+            <div class="org-card main-head">소장</div>
+            <div class="org-card small-card" style="margin-left: auto;">산업 자문단</div>
         </div>
+        <div class="wing-line-down"></div>
+        <ul>
+            <li>
+                <div class="org-card sub-head">기획실</div>
+                <ul>
+                    <li>
+                        <div class="org-card">교육연구실</div>
+                        <ul>
+                            <li>
+                                <div class="org-card">책임연구원</div>
+                                <ul>
+                                    <li><div class="org-card small-card">연구원</div></li>
+                                    <li><div class="org-card small-card">연구원</div></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="org-card">기획실장</div>
+                        <ul>
+                            <li>
+                                <div class="org-card">수석연구원</div>
+                                <ul>
+                                    <li><div class="org-card small-card">연구원</div></li>
+                                    <li><div class="org-card small-card">연구원</div></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="org-card">행정실</div>
+                        <ul>
+                            <li>
+                                <div class="org-card">책임연구원</div>
+                                <ul>
+                                    <li><div class="org-card small-card">연구원</div></li>
+                                    <li><div class="org-card small-card">연구원</div></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+</div>
         
 
         
