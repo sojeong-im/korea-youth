@@ -45,7 +45,13 @@
                                 <li><a href="research_fields.html">연구분야</a></li>
                             </ul>
                         </li>
-                        <li><a href="news.html">열린 소식</a></li>
+                        <li class="dropdown active">
+                            <a href="news.html" class="dropdown-toggle" data-toggle="dropdown">열린 소식 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="news.html">공지</a></li>
+                                <li><a href="news_updates.html">소식</a></li>
+                            </ul>
+                        </li>
                         <li><a href="support.html">후원</a></li>
                         <li><a href="cooperation.html">협동</a></li>
                     </ul>
@@ -64,6 +70,11 @@
 
     <!-- Main Content -->
     <div class="container sub-content">
+        <div class="snb-tabs">
+            <a href="news.html" class="btn btn-default active">공지</a>
+            <a href="news_updates.html" class="btn btn-default ">소식</a>
+        </div>
+
         <!-- 1. 공지 -->
         <div class="content-section">
             <h3 class="sub-title">1. 공지 <small>Notice</small></h3>
@@ -108,14 +119,8 @@
             </div>
         </div>
 
-        <!-- 2. 소식 -->
-        <div class="content-section" style="margin-top:50px;">
-            <h3 class="sub-title">2. 소식 <small>News & Events</small></h3>
-            <div class="placeholder-box">
-                <p class="text-muted">[안내] 학회 참석, 세미나, 언론 보도 등 연구소의 대내외 활동 소식이 갤러리/웹진 형태로 들어갈 자리입니다.</p>
-            </div>
-        </div>
-    </div>
+        
+</div>
 
     <!-- Footer -->
     <footer class="footer">
