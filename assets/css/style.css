@@ -310,3 +310,111 @@ a:hover, a:focus {
     line-height: 1.8;
     font-style: normal;
 }
+
+/* ==========================================================================
+   Subpage Styles
+   ========================================================================== */
+.sub-visual {
+    width: 100%;
+    height: 180px;
+    background-color: #003366;
+    background-image: url('../images/main_banner.jpg');
+    background-size: cover;
+    background-position: center 30%;
+    position: relative;
+    border-bottom: 1px solid #002244;
+}
+.sub-visual::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 30, 70, 0.85); /* Darker overlay for subpages */
+    z-index: 1;
+}
+.sub-visual .container {
+    position: relative;
+    z-index: 2;
+    padding-top: 50px;
+    color: #fff;
+}
+.sub-visual h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-family: 'Malgun Gothic', sans-serif;
+    letter-spacing: -1px;
+}
+.sub-visual p {
+    font-size: 14px;
+    color: #cbd6e2;
+}
+
+.sub-content {
+    padding: 50px 15px;
+    min-height: 500px;
+}
+.content-section {
+    margin-bottom: 50px;
+}
+.sub-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #004b87;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #003366;
+    padding-bottom: 10px;
+    font-family: 'Malgun Gothic', sans-serif;
+}
+.sub-title small {
+    font-size: 12px;
+    color: #999;
+    font-family: Arial, sans-serif;
+    font-weight: normal;
+    margin-left: 8px;
+}
+
+/* Placeholders & Elements */
+.placeholder-box {
+    background-color: #f9f9f9;
+    border: 1px dashed #ccc;
+    padding: 30px;
+    color: #555;
+    line-height: 1.8;
+}
+.org-chart-placeholder {
+    font-family: 'Dotum', sans-serif;
+    font-weight: bold;
+    color: #003366;
+    font-size: 14px;
+    line-height: 2.0;
+}
+.history-table th {
+    background-color: #f5f5f5;
+    text-align: center;
+    border-top: 2px solid #333 !important;
+}
+.history-table td {
+    border-top: 1px solid #ddd !important;
+    color: #555;
+}
+
+/* Form Styles */
+.form-container {
+    background-color: #fdfdfd;
+    border: 1px solid #e5e5e5;
+    padding: 30px 20px;
+    border-top: 3px solid #003366;
+}
+.form-horizontal .control-label {
+    text-align: left;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Active GNB State */
+.gnb li.active a {
+    color: #004b87;
+    border-bottom: 2px solid #004b87;
+    padding-bottom: 3px;
+}
