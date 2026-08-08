@@ -13,7 +13,7 @@
     <div class="top-util">
         <div class="container">
             <div class="text-right">
-                <a href="login.html">로그인</a> | <a href="#">회원가입</a>
+                <a href="login.html">로그인</a>
             </div>
         </div>
     </div>
@@ -267,5 +267,25 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Auth UI Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const topAuth = document.querySelector('.top-util .text-right');
+            const gnb = document.querySelector('.gnb');
+            
+            if (sessionStorage.getItem('isLoggedIn') === 'true') {
+                if (topAuth) {
+                    topAuth.innerHTML = '<span style="color:#004b87; font-weight:bold;">toqn2 파트너님</span> | <a href="#" onclick="sessionStorage.removeItem(\'isLoggedIn\'); window.location.href=\'index.html\';">로그아웃</a>';
+                }
+                if (gnb) {
+                    const jointLi = document.createElement('li');
+                    jointLi.innerHTML = '<a href="joint_research.html" style="color:#004b87; font-weight:900;">공동연구</a>';
+                    gnb.appendChild(jointLi);
+                }
+            }
+        });
+    </script>
+
 </body>
 </html>
