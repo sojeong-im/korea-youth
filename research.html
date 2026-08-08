@@ -73,10 +73,160 @@
         <!-- 1. 사회 실험 -->
         <div class="content-section">
             <h3 class="sub-title">1. 사회 실험 <small>Social Experiments</small></h3>
-            <div class="placeholder-box">
-                <h4>행동 데이터 수집 및 행동변화 검증</h4>
-                <p class="text-muted">[안내] 청년들의 실제 행동 데이터를 수집하고, 특정 개입을 통한 행동 변화를 검증하는 사회 실험의 목적과 방법론을 작성해 주세요.</p>
-            </div>
+            
+<style>
+/* Methodology Steps */
+.methodology-wrap {
+    margin: 40px 0;
+}
+.methodology-wrap .sec-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: #003366;
+    margin-bottom: 30px;
+    text-align: center;
+    letter-spacing: -0.5px;
+}
+.step-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.step-card {
+    flex: 1;
+    min-width: 250px;
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    padding: 30px 25px;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    transition: all 0.3s;
+}
+.step-card:hover {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transform: translateY(-5px);
+    border-color: #004b87;
+}
+.step-num {
+    display: inline-block;
+    background: #004b87;
+    color: #fff;
+    font-weight: 800;
+    font-size: 14px;
+    padding: 6px 15px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+.step-title {
+    font-size: 19px;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 15px;
+    letter-spacing: -0.5px;
+}
+.step-desc {
+    font-size: 15px;
+    color: #444;
+    line-height: 1.6;
+    word-break: keep-all;
+}
+
+/* Case Study */
+.case-study {
+    background: #f8f9fb;
+    border-top: 3px solid #004b87;
+    padding: 45px;
+    margin-top: 60px;
+    margin-bottom: 40px;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+}
+.case-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #003366;
+    margin-bottom: 30px;
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 20px;
+    letter-spacing: -0.5px;
+}
+.case-item {
+    margin-bottom: 25px;
+}
+.case-item:last-child {
+    margin-bottom: 0;
+}
+.case-label {
+    font-size: 17px;
+    font-weight: 800;
+    color: #004b87;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+.case-label::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 16px;
+    background: #004b87;
+    margin-right: 10px;
+    border-radius: 2px;
+}
+.case-text {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.8;
+    padding-left: 14px;
+    word-break: keep-all;
+}
+</style>
+
+<div class="methodology-wrap">
+    <h4 class="sec-title">연구소의 행동 변화 검증 프로세스 (Methodology)</h4>
+    <div class="step-row">
+        <div class="step-card">
+            <div class="step-num">STEP 1</div>
+            <div class="step-title">패턴 직면 (Data Collection)</div>
+            <div class="step-desc">사전 진단지 및 1:1 심층 인터뷰를 통해 참여자의 무의식적 방어기제와 회피 패턴을 구조화된 데이터로 추출합니다. <br><span style="font-size:13px; color:#888; display:block; margin-top:12px;">(※ 모든 데이터는 철저히 익명화되어 수집됩니다.)</span></div>
+        </div>
+        <div class="step-card">
+            <div class="step-num">STEP 2</div>
+            <div class="step-title">주체성 개입 (Intervention)</div>
+            <div class="step-desc">단편적 조언이 아닌, 연구소만의 '주체성 회복 및 경계선 설정' 솔루션(코칭, 워크숍)을 투입하여 기존의 악순환 고리를 차단합니다.</div>
+        </div>
+        <div class="step-card">
+            <div class="step-num">STEP 3</div>
+            <div class="step-title">행동 변화 측정 (Verification)</div>
+            <div class="step-desc">개입 후 1개월, 3개월 단위의 추적 관찰(Follow-up)을 통해 실제 일상(연애, 직장, 개인 목표)에서 긍정적 행동 변화가 유지되고 있는지 정량·정성적 지표로 검증합니다.</div>
+        </div>
+    </div>
+</div>
+
+<div class="case-study">
+    <div class="case-title">신입사원 '조용한 퇴사(Quiet Quitting)' 갈등 시뮬레이션</div>
+    
+    <div class="case-item">
+        <div class="case-label">실험 목적</div>
+        <div class="case-text">30%에 육박하는 신입사원 조기 퇴사의 진짜 원인이 직무가 아닌 <strong>'대인관계 갈등 회피'</strong>에 있음을 입증.</div>
+    </div>
+    
+    <div class="case-item">
+        <div class="case-label">행동 데이터 수집</div>
+        <div class="case-text">상사와의 피드백 충돌, 동료와의 모호한 업무 경계 등 직장 내 가상 갈등 상황(Role-play) 부여 후, 청년들의 무의식적 대처 방식(침묵, 즉각적인 퇴사 탐색, 감정적 폭발 등) 데이터화.</div>
+    </div>
+    
+    <div class="case-item">
+        <div class="case-label">행동 변화 검증</div>
+        <div class="case-text">
+            '온보딩 소통 행동패턴 재설계' 교육 투입.<br>
+            갈등 상황을 회피(퇴사)로 연결하는 무의식적 스위치를 차단하고, 문제를 직면하여 해결하려는 <strong style="color:#000;">'조직 내 정착 의지 및 소통 시도율'</strong> 유의미한 상승 검증. <br><span style="color:#004b87; font-weight:800; display:inline-block; margin-top:8px;">(B2B 기업 리텐션 데이터로 활용)</span>
+        </div>
+    </div>
+</div>
+
         </div>
 
         
