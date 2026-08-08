@@ -21,218 +21,43 @@
     <!-- Header -->
     <header class="header">
         <div class="container">
-            
-<style>
-/* Research Fields Grid */
-.fields-intro {
-    text-align: center;
-    margin-bottom: 40px;
-}
-.fields-intro h3 {
-    font-size: 26px;
-    font-weight: 800;
-    color: #003366;
-    margin-bottom: 15px;
-}
-.fields-intro p {
-    font-size: 16px;
-    color: #555;
-    line-height: 1.6;
-}
-
-.fields-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-    margin-bottom: 60px;
-}
-.field-card {
-    background: #fff;
-    border: 1px solid #E5E7EB;
-    border-radius: 12px;
-    padding: 40px 35px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-}
-.field-card:hover {
-    box-shadow: 0 12px 30px rgba(0,0,0,0.07);
-    transform: translateY(-5px);
-    border-color: #004b87;
-}
-.field-header {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 20px;
-}
-.field-num {
-    font-size: 42px;
-    font-weight: 900;
-    color: #f0f3f7;
-    margin-right: 20px;
-    line-height: 0.8;
-    font-family: 'Arial', sans-serif;
-    letter-spacing: -2px;
-}
-.field-title {
-    font-size: 21px;
-    font-weight: 800;
-    color: #111;
-    letter-spacing: -0.5px;
-    line-height: 1.4;
-    margin-top: -2px;
-}
-.field-catchphrase {
-    font-size: 16px;
-    font-weight: 700;
-    color: #004b87;
-    margin-bottom: 25px;
-    line-height: 1.6;
-    word-break: keep-all;
-    background: #f4f8fb;
-    padding: 12px 18px;
-    border-radius: 6px;
-    border-left: 3px solid #004b87;
-}
-.field-content {
-    font-size: 15.5px;
-    color: #444;
-    line-height: 1.7;
-    flex-grow: 1;
-}
-.field-content strong {
-    display: inline-block;
-    color: #fff;
-    background: #555;
-    font-size: 12px;
-    padding: 3px 8px;
-    border-radius: 3px;
-    margin-bottom: 12px;
-    letter-spacing: 0.5px;
-}
-.field-content ul {
-    padding-left: 20px;
-    margin: 0;
-}
-.field-content li {
-    margin-bottom: 12px;
-    word-break: keep-all;
-}
-.field-content li:last-child {
-    margin-bottom: 0;
-}
-
-@media screen and (max-width: 992px) {
-    .fields-grid {
-        grid-template-columns: 1fr;
-    }
-}
-</style>
-
-<div class="fields-intro">
-    <h3>연구분야 (6가지 핵심 영역)</h3>
-    <p>한국청년행동패턴연구소가 주력하고 있는 청년 세대의 다중 불확실성 대응 연구 영역입니다.</p>
-</div>
-
-<div class="fields-grid">
-    <!-- 01 -->
-    <div class="field-card">
-        <div class="field-header">
-            <div class="field-num">01</div>
-            <div class="field-title">커리어 브랜딩 및 주체적 자기표현<br><span style="font-size: 14px; font-weight: 500; color: #888;">(기존: 취업 / 이미지)</span></div>
+            <div class="row">
+                <div class="col-xs-4 logo-area">
+                    <a href="index.html">
+                        <img src="assets/images/logo.png" alt="한국청년행동패턴연구소" style="height: 160px; width: auto; margin-top: -50px; margin-left: -20px; mix-blend-mode: multiply;">
+                    </a>
+                </div>
+                <div class="col-xs-8 gnb-area">
+                    <ul class="gnb list-inline text-right">
+                        <li class="dropdown">
+                            <a href="intro.html" class="dropdown-toggle" data-toggle="dropdown">소개 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="intro.html">스토리 텔링</a></li>
+                                <li><a href="intro_org.html">조직도</a></li>
+                                <li><a href="intro_history.html">연혁</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown active">
+                            <a href="research.html" class="dropdown-toggle" data-toggle="dropdown">연구개발 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="research.html">사회 실험</a></li>
+                                <li><a href="research_projects.html">주요 프로젝트</a></li>
+                                <li><a href="research_fields.html">연구분야</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="news.html" class="dropdown-toggle" data-toggle="dropdown">열린 소식 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="news.html">공지</a></li>
+                                <li><a href="news_updates.html">소식</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="support.html">후원</a></li>
+                        <li><a href="cooperation.html">협동</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="field-catchphrase">"타인의 시선에서 벗어나 나만의 고유한 역량을 입체적으로 증명합니다."</div>
-        <div class="field-content">
-            <strong>연구 및 분석 내용</strong>
-            <ul>
-                <li>단순 스펙 나열이 아닌, 개인의 고유한 행동 특성 및 경험을 바탕으로 한 <b>'주체적 커리어 아이덴티티'</b> 구축.</li>
-                <li>서류 및 면접 과정에서 드러나는 회피·긴장성 행동 패턴 진단 및 직무 강점 브랜딩.</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- 02 -->
-    <div class="field-card">
-        <div class="field-header">
-            <div class="field-num">02</div>
-            <div class="field-title">소통 패턴 및 대인 스피치<br><span style="font-size: 14px; font-weight: 500; color: #888;">(기존: 스피치)</span></div>
-        </div>
-        <div class="field-catchphrase">"무의식적 대화 습관을 분석하여 소통의 주도권과 신뢰감을 회복합니다."</div>
-        <div class="field-content">
-            <strong>연구 및 분석 내용</strong>
-            <ul>
-                <li>갈등이나 압박 상황에서 나타나는 방어적·회피적 언어 습관 및 음성/행동 패턴 분석.</li>
-                <li>비난이나 서운함 대신 내 내면의 감정과 의견을 솔직하게 전달하는 <b>'주체적 대화 기술(Real-Talk)'</b> 수립.</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- 03 -->
-    <div class="field-card">
-        <div class="field-header">
-            <div class="field-num">03</div>
-            <div class="field-title">주체적 커리어 서사 및 진로 설계<br><span style="font-size: 14px; font-weight: 500; color: #888;">(기존: 진로 설계)</span></div>
-        </div>
-        <div class="field-catchphrase">"파편화된 경험 속에서 중심을 잡고 나만의 다중 커리어 로드맵을 세웁니다."</div>
-        <div class="field-content">
-            <strong>연구 및 분석 내용</strong>
-            <ul>
-                <li>N잡 및 다재다능(Multipotentialite) 청년들이 겪는 진로 결정 마비 및 결정 장애 패턴 구조화.</li>
-                <li>겉으로 보이는 스펙 너머, 삶을 관통하는 핵심 가치관 중심의 <b>다중 커리어 서사(Narrative)</b> 통합.</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- 04 -->
-    <div class="field-card">
-        <div class="field-header">
-            <div class="field-num">04</div>
-            <div class="field-title">불확실성 대응 자기관리 및 루틴<br><span style="font-size: 14px; font-weight: 500; color: #888;">(기존: 자기관리법 설계)</span></div>
-        </div>
-        <div class="field-catchphrase">"무너진 일상의 불확실성을 극복하고 나를 지키는 심리적 안전망을 만듭니다."</div>
-        <div class="field-content">
-            <strong>연구 및 분석 내용</strong>
-            <ul>
-                <li>무기력, 미루기(Procrastination), SNS 상향 비교로 인한 번아웃 행동 패턴 진단.</li>
-                <li>완벽주의 강박을 해체하고, 작은 성공 경험을 축적하는 <b>'주체적 일상 회복 루틴'</b> 설계.</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- 05 -->
-    <div class="field-card">
-        <div class="field-header">
-            <div class="field-num">05</div>
-            <div class="field-title">대인관계 경계선(Boundary) 및 소통<br><span style="font-size: 14px; font-weight: 500; color: #888;">(기존: 인간관계 관리)</span></div>
-        </div>
-        <div class="field-catchphrase">"과도한 의존과 회피를 넘어, 나를 잃지 않는 건강한 심리적 거리감을 세웁니다."</div>
-        <div class="field-content">
-            <strong>연구 및 분석 내용</strong>
-            <ul>
-                <li>타인의 평가에 휘둘리거나 관계를 쉽게 단절해 버리는 무의식적 관계 패턴 파악.</li>
-                <li>나를 보호하면서도 타인과 깊게 연결되는 <b>'건강한 심리적 경계선(Boundary) 설정'</b> 프레임워크 제공.</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- 06 -->
-    <div class="field-card">
-        <div class="field-header">
-            <div class="field-num">06</div>
-            <div class="field-title">친밀성 애착 패턴 및 연애 스타일<br><span style="font-size: 14px; font-weight: 500; color: #888;">(기존: 연애 스타일 분석)</span></div>
-        </div>
-        <div class="field-catchphrase">"반복되는 연애 잔혹사를 끊어내고 존중받는 성숙한 친밀감을 형성합니다."</div>
-        <div class="field-content">
-            <strong>연구 및 분석 내용</strong>
-            <ul>
-                <li>연애 중 발생하는 유기불안, 과도한 집착, 혹은 회피성 애착 반응의 행동 데이터 분석.</li>
-                <li>상대를 향한 낭만적 투사를 해체하고, 서로의 주체성을 지켜주는 <b>'안정형 친밀성 모델'</b> 구축.</li>
-            </ul>
-        </div>
-    </div>
-</div>
-
     </header>
 
     <!-- Subpage Visual -->
@@ -251,10 +76,7 @@
             <a href="research_fields.html" class="btn btn-default active">연구분야</a>
         </div>
 
-        <!-- 3. 연구분야 (6가지) -->
-        <div class="content-section">
-            <h3 class="sub-title">3. 연구분야 <small>6 Research Areas</small></h3>
-            
+        
 <style>
 /* Research Fields Grid */
 .fields-intro {
@@ -466,224 +288,31 @@
     </div>
 </div>
 
-    
-</div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            
-<style>
-/* Research Fields Grid */
-.fields-intro {
-    text-align: center;
-    margin-bottom: 40px;
-}
-.fields-intro h3 {
-    font-size: 26px;
-    font-weight: 800;
-    color: #003366;
-    margin-bottom: 15px;
-}
-.fields-intro p {
-    font-size: 16px;
-    color: #555;
-    line-height: 1.6;
-}
-
-.fields-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-    margin-bottom: 60px;
-}
-.field-card {
-    background: #fff;
-    border: 1px solid #E5E7EB;
-    border-radius: 12px;
-    padding: 40px 35px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-}
-.field-card:hover {
-    box-shadow: 0 12px 30px rgba(0,0,0,0.07);
-    transform: translateY(-5px);
-    border-color: #004b87;
-}
-.field-header {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 20px;
-}
-.field-num {
-    font-size: 42px;
-    font-weight: 900;
-    color: #f0f3f7;
-    margin-right: 20px;
-    line-height: 0.8;
-    font-family: 'Arial', sans-serif;
-    letter-spacing: -2px;
-}
-.field-title {
-    font-size: 21px;
-    font-weight: 800;
-    color: #111;
-    letter-spacing: -0.5px;
-    line-height: 1.4;
-    margin-top: -2px;
-}
-.field-catchphrase {
-    font-size: 16px;
-    font-weight: 700;
-    color: #004b87;
-    margin-bottom: 25px;
-    line-height: 1.6;
-    word-break: keep-all;
-    background: #f4f8fb;
-    padding: 12px 18px;
-    border-radius: 6px;
-    border-left: 3px solid #004b87;
-}
-.field-content {
-    font-size: 15.5px;
-    color: #444;
-    line-height: 1.7;
-    flex-grow: 1;
-}
-.field-content strong {
-    display: inline-block;
-    color: #fff;
-    background: #555;
-    font-size: 12px;
-    padding: 3px 8px;
-    border-radius: 3px;
-    margin-bottom: 12px;
-    letter-spacing: 0.5px;
-}
-.field-content ul {
-    padding-left: 20px;
-    margin: 0;
-}
-.field-content li {
-    margin-bottom: 12px;
-    word-break: keep-all;
-}
-.field-content li:last-child {
-    margin-bottom: 0;
-}
-
-@media screen and (max-width: 992px) {
-    .fields-grid {
-        grid-template-columns: 1fr;
-    }
-}
-</style>
-
-<div class="fields-intro">
-    <h3>연구분야 (6가지 핵심 영역)</h3>
-    <p>한국청년행동패턴연구소가 주력하고 있는 청년 세대의 다중 불확실성 대응 연구 영역입니다.</p>
-</div>
-
-<div class="fields-grid">
-    <!-- 01 -->
-    <div class="field-card">
-        <div class="field-header">
-            <div class="field-num">01</div>
-            <div class="field-title">커리어 브랜딩 및 주체적 자기표현<br><span style="font-size: 14px; font-weight: 500; color: #888;">(기존: 취업 / 이미지)</span></div>
+            <div class="row">
+                <div class="col-xs-9 footer-info">
+                    <ul class="list-inline f-links">
+                        <li><a href="#" style="color:#fff; font-weight:bold;">개인정보처리방침</a></li>
+                        <li>|</li>
+                        <li><a href="#">이용약관</a></li>
+                        <li>|</li>
+                        <li><a href="#">이메일무단수집거부</a></li>
+                    </ul>
+                    <address>
+                        (03124) 서울특별시 종로구 세종대로 000, 5층 한국청년행동패턴연구소<br>
+                        대표번호 : 02-1234-5678 &nbsp;&nbsp; 팩스 : 02-1234-5679 &nbsp;&nbsp; 이메일 : admin@kiybpr.re.kr<br>
+                        Copyright &copy; Korea Institute of Youth Behavior Pattern Research. All Rights Reserved.
+                    </address>
+                </div>
+                <div class="col-xs-3 footer-logo text-right">
+                    <h2 style="margin: 0; color: #666; font-size: 18px; font-weight: bold; padding-top: 20px;">한국청년행동패턴연구소</h2>
+                </div>
+            </div>
         </div>
-        <div class="field-catchphrase">"타인의 시선에서 벗어나 나만의 고유한 역량을 입체적으로 증명합니다."</div>
-        <div class="field-content">
-            <strong>연구 및 분석 내용</strong>
-            <ul>
-                <li>단순 스펙 나열이 아닌, 개인의 고유한 행동 특성 및 경험을 바탕으로 한 <b>'주체적 커리어 아이덴티티'</b> 구축.</li>
-                <li>서류 및 면접 과정에서 드러나는 회피·긴장성 행동 패턴 진단 및 직무 강점 브랜딩.</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- 02 -->
-    <div class="field-card">
-        <div class="field-header">
-            <div class="field-num">02</div>
-            <div class="field-title">소통 패턴 및 대인 스피치<br><span style="font-size: 14px; font-weight: 500; color: #888;">(기존: 스피치)</span></div>
-        </div>
-        <div class="field-catchphrase">"무의식적 대화 습관을 분석하여 소통의 주도권과 신뢰감을 회복합니다."</div>
-        <div class="field-content">
-            <strong>연구 및 분석 내용</strong>
-            <ul>
-                <li>갈등이나 압박 상황에서 나타나는 방어적·회피적 언어 습관 및 음성/행동 패턴 분석.</li>
-                <li>비난이나 서운함 대신 내 내면의 감정과 의견을 솔직하게 전달하는 <b>'주체적 대화 기술(Real-Talk)'</b> 수립.</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- 03 -->
-    <div class="field-card">
-        <div class="field-header">
-            <div class="field-num">03</div>
-            <div class="field-title">주체적 커리어 서사 및 진로 설계<br><span style="font-size: 14px; font-weight: 500; color: #888;">(기존: 진로 설계)</span></div>
-        </div>
-        <div class="field-catchphrase">"파편화된 경험 속에서 중심을 잡고 나만의 다중 커리어 로드맵을 세웁니다."</div>
-        <div class="field-content">
-            <strong>연구 및 분석 내용</strong>
-            <ul>
-                <li>N잡 및 다재다능(Multipotentialite) 청년들이 겪는 진로 결정 마비 및 결정 장애 패턴 구조화.</li>
-                <li>겉으로 보이는 스펙 너머, 삶을 관통하는 핵심 가치관 중심의 <b>다중 커리어 서사(Narrative)</b> 통합.</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- 04 -->
-    <div class="field-card">
-        <div class="field-header">
-            <div class="field-num">04</div>
-            <div class="field-title">불확실성 대응 자기관리 및 루틴<br><span style="font-size: 14px; font-weight: 500; color: #888;">(기존: 자기관리법 설계)</span></div>
-        </div>
-        <div class="field-catchphrase">"무너진 일상의 불확실성을 극복하고 나를 지키는 심리적 안전망을 만듭니다."</div>
-        <div class="field-content">
-            <strong>연구 및 분석 내용</strong>
-            <ul>
-                <li>무기력, 미루기(Procrastination), SNS 상향 비교로 인한 번아웃 행동 패턴 진단.</li>
-                <li>완벽주의 강박을 해체하고, 작은 성공 경험을 축적하는 <b>'주체적 일상 회복 루틴'</b> 설계.</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- 05 -->
-    <div class="field-card">
-        <div class="field-header">
-            <div class="field-num">05</div>
-            <div class="field-title">대인관계 경계선(Boundary) 및 소통<br><span style="font-size: 14px; font-weight: 500; color: #888;">(기존: 인간관계 관리)</span></div>
-        </div>
-        <div class="field-catchphrase">"과도한 의존과 회피를 넘어, 나를 잃지 않는 건강한 심리적 거리감을 세웁니다."</div>
-        <div class="field-content">
-            <strong>연구 및 분석 내용</strong>
-            <ul>
-                <li>타인의 평가에 휘둘리거나 관계를 쉽게 단절해 버리는 무의식적 관계 패턴 파악.</li>
-                <li>나를 보호하면서도 타인과 깊게 연결되는 <b>'건강한 심리적 경계선(Boundary) 설정'</b> 프레임워크 제공.</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- 06 -->
-    <div class="field-card">
-        <div class="field-header">
-            <div class="field-num">06</div>
-            <div class="field-title">친밀성 애착 패턴 및 연애 스타일<br><span style="font-size: 14px; font-weight: 500; color: #888;">(기존: 연애 스타일 분석)</span></div>
-        </div>
-        <div class="field-catchphrase">"반복되는 연애 잔혹사를 끊어내고 존중받는 성숙한 친밀감을 형성합니다."</div>
-        <div class="field-content">
-            <strong>연구 및 분석 내용</strong>
-            <ul>
-                <li>연애 중 발생하는 유기불안, 과도한 집착, 혹은 회피성 애착 반응의 행동 데이터 분석.</li>
-                <li>상대를 향한 낭만적 투사를 해체하고, 서로의 주체성을 지켜주는 <b>'안정형 친밀성 모델'</b> 구축.</li>
-            </ul>
-        </div>
-    </div>
-</div>
-
     </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
