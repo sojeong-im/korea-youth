@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>열린 소식 - 한국청년행동패턴연구소</title>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <!-- 2012-2018 sites often weren't fully responsive or had a fixed width layout. We'll use a fixed container -->
+    <title>로그인 - 한국청년행동패턴연구소</title>
+    <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -45,7 +48,7 @@
                                 <li><a href="research_fields.html">연구분야</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown active">
+                        <li class="dropdown">
                             <a href="news.html" class="dropdown-toggle" data-toggle="dropdown">열린 소식 <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="news.html">공지</a></li>
@@ -60,56 +63,64 @@
         </div>
     </header>
 
-    <!-- Subpage Visual -->
+    
     <div class="sub-visual">
         <div class="container text-center">
-            <h2>열린 소식</h2>
-            <p>연구소의 최신 공지와 다양한 소식들을 전해드립니다.</p>
+            <h2>로그인</h2>
+            <p>공동연구 파트너 및 연구원 전용 페이지입니다.</p>
         </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="container sub-content">
-        <div class="snb-tabs">
-            <a href="news.html" class="btn btn-default active">목록으로 돌아가기</a>
-        </div>
-        
-        <div class="content-section" style="margin-top: 20px;">
-            <div style="border-top: 3px solid #004b87; padding: 40px 0 20px 0; border-bottom: 1px solid #eee; margin-bottom:30px;">
-                <span style="background:#d10024; color:#fff; font-size:13px; padding:4px 10px; border-radius:3px; font-weight:bold; margin-bottom:15px; display:inline-block;">공지</span>
-                <h3 style="font-size:24px; font-weight:800; color:#111; margin:0 0 15px 0; line-height:1.4;">한국청년행동패턴 연구소 윤리위원회 구성 및 '연구 윤리 준수' 선언</h3>
-                <div style="font-size:14px; color:#666;">작성일: 2026.07.15 &nbsp;|&nbsp; 조회수: 110</div>
-            </div>
+    <div class="container sub-content" style="padding-top: 80px; padding-bottom: 120px; max-width: 500px;">
+        <div style="background: #fff; border: 1px solid #E5E7EB; border-radius: 12px; padding: 50px 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); text-align: center;">
+            <h3 style="font-size: 24px; font-weight: 800; color: #003366; margin-bottom: 30px; letter-spacing: -0.5px;">한국청년행동패턴연구소</h3>
             
-            <div style="font-size:16px; color:#333; line-height:1.8; padding:20px 10px 50px 10px; min-height:300px;">
-                <p style="font-size:18px; font-weight:bold; color:#004b87; margin-bottom:20px;">
-                    데이터 수집부터 검증까지, 청년의 인권과 익명성을 철저히 보호하고 정직한 연구만을 수행할 것을 약속하는 연구 윤리 강령을 공표합니다.
-                </p>
-                <p>
-                    한국청년행동패턴연구소를 찾아주신 여러분을 진심으로 환영합니다. <br>
-                    본 게시글은 한국청년행동패턴 연구소 윤리위원회 구성 및 '연구 윤리 준수' 선언에 대한 상세 안내를 드리기 위해 작성되었습니다. 
-                </p>
-                <p>
-                    우리 연구소는 불확실성의 시대를 살아가는 청년들이 무의식적으로 반복해 온 행동패턴을 스스로 직면하고, 
-                    고유한 가능성을 현실로 구현할 수 있도록 다각적인 연구와 솔루션을 제공하고 있습니다.
-                </p>
-                <p>
-                    제시된 내용과 관련하여 문의사항이나 상담 신청이 필요하신 경우, 언제든지 공식 이메일 또는 유선 채널을 통해 연락해 주시기 바랍니다. 
-                    앞으로도 청년들의 주체적인 삶을 위해 끊임없이 연구하고 소통하는 연구소가 되겠습니다. 
-                </p>
-                <p style="margin-top:40px;">
-                    감사합니다.<br><br>
-                    <strong>- 한국청년행동패턴연구소 임직원 일동 -</strong>
-                </p>
-            </div>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group" style="text-align: left; margin-bottom: 20px;">
+                    <label for="userId" style="font-weight: 600; color: #333; margin-bottom: 8px; display: block;">아이디</label>
+                    <input type="text" id="userId" class="form-control" style="height: 48px; border-radius: 6px; box-shadow: none; border-color: #ddd;" placeholder="아이디를 입력하세요" required>
+                </div>
+                <div class="form-group" style="text-align: left; margin-bottom: 30px;">
+                    <label for="userPwd" style="font-weight: 600; color: #333; margin-bottom: 8px; display: block;">비밀번호</label>
+                    <input type="password" id="userPwd" class="form-control" style="height: 48px; border-radius: 6px; box-shadow: none; border-color: #ddd;" placeholder="비밀번호를 입력하세요" required>
+                </div>
+                
+                <div id="loginError" style="color: #d10024; font-size: 13px; font-weight: bold; margin-bottom: 15px; display: none;">아이디 또는 비밀번호가 올바르지 않습니다.</div>
+                
+                <button type="submit" class="btn btn-primary btn-block" style="background: #004b87; border: none; height: 50px; font-size: 16px; font-weight: bold; border-radius: 6px; transition: background 0.3s;">로그인</button>
+            </form>
             
-            <div style="border-top:1px solid #ccc; padding-top:20px; text-align:right;">
-                <a href="news.html" class="btn btn-primary" style="background:#004b87; border:none; padding:10px 25px; font-weight:bold;">목록 보기</a>
+            <div style="margin-top: 25px; font-size: 13px; color: #888;">
+                ※ 승인된 연구원 및 파트너 기관만 접근 가능합니다.
             </div>
         </div>
-       
-</div>
+    </div>
 
+    <script>
+        function handleLogin(e) {
+            e.preventDefault();
+            const id = document.getElementById('userId').value;
+            const pwd = document.getElementById('userPwd').value;
+            const errorMsg = document.getElementById('loginError');
+            
+            if (id === 'toqn2' && pwd === 'toqn2!') {
+                errorMsg.style.display = 'none';
+                // Store auth state
+                sessionStorage.setItem('isLoggedIn', 'true');
+                // Redirect to Joint Research
+                window.location.href = 'joint_research.html';
+            } else {
+                errorMsg.style.display = 'block';
+            }
+        }
+        
+        // If already logged in, redirect to joint_research
+        window.onload = function() {
+            if (sessionStorage.getItem('isLoggedIn') === 'true') {
+                window.location.href = 'joint_research.html';
+            }
+        }
+    </script>
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -135,6 +146,7 @@
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
