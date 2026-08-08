@@ -1,0 +1,312 @@
+@charset "utf-8";
+
+/* ==========================================================================
+   Base Styles (Mimicking 2012-2018 Korean public/academic sites)
+   ========================================================================== */
+body {
+    font-family: 'Dotum', '돋움', 'Malgun Gothic', '맑은 고딕', sans-serif;
+    color: #333;
+    font-size: 13px;
+    line-height: 1.6;
+    background-color: #fff;
+    -webkit-font-smoothing: none; /* Often looked a bit aliased back then */
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+a:hover, a:focus {
+    color: #004b87;
+    text-decoration: none;
+}
+
+/* ==========================================================================
+   Header & Navigation
+   ========================================================================== */
+.top-util {
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 5px 0;
+    font-size: 11px;
+}
+.top-util a {
+    color: #666;
+    margin: 0 5px;
+}
+
+.header {
+    padding: 25px 0;
+    border-bottom: 2px solid #003366;
+    background-color: #fff;
+}
+.logo-area h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #003366;
+    letter-spacing: -1px;
+    font-family: 'Malgun Gothic', sans-serif;
+}
+.logo-area p {
+    margin: 3px 0 0 0;
+    font-size: 11px;
+    color: #666;
+    font-family: Arial, sans-serif;
+}
+
+.gnb-area {
+    padding-top: 15px;
+}
+.gnb {
+    margin: 0;
+}
+.gnb li {
+    padding: 0 12px;
+}
+.gnb li a {
+    font-size: 15px;
+    font-weight: bold;
+    color: #333;
+    font-family: 'Malgun Gothic', sans-serif;
+}
+.gnb li a:hover {
+    color: #004b87;
+}
+
+/* ==========================================================================
+   Main Visual
+   ========================================================================== */
+.main-visual {
+    width: 100%;
+    height: 350px;
+    background-color: #1a365d;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    position: relative;
+    border-bottom: 1px solid #002244;
+}
+.main-visual::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 20, 50, 0.6); /* Dark overlay to make text readable */
+    z-index: 1;
+}
+.visual-content {
+    position: relative;
+    z-index: 2;
+    padding-top: 100px;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+.visual-content h2 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-family: 'Malgun Gothic', sans-serif;
+    letter-spacing: -1px;
+}
+.visual-content p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: #e0eaf5;
+}
+.btn-intro {
+    background-color: #004b87;
+    border-color: #003366;
+    border-radius: 0; /* Square button */
+    font-family: 'Malgun Gothic', sans-serif;
+    font-weight: bold;
+    padding: 10px 30px;
+    font-size: 15px;
+    box-shadow: 1px 1px 0px rgba(0,0,0,0.2); /* Old-school subtle drop shadow */
+}
+.btn-intro:hover {
+    background-color: #003366;
+    border-color: #002244;
+}
+
+/* ==========================================================================
+   Main Content Area
+   ========================================================================== */
+.main-content {
+    padding: 40px 15px;
+}
+.section-divider {
+    border-top: 1px solid #e5e5e5;
+    margin: 40px 0;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #003366;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+    font-family: 'Malgun Gothic', sans-serif;
+    position: relative;
+}
+.section-title small {
+    font-size: 12px;
+    color: #888;
+    font-family: Arial, sans-serif;
+    font-weight: normal;
+    margin-left: 5px;
+}
+
+/* Shortcut Cards */
+.shortcut-cards {
+    margin-top: 20px;
+}
+.card-item {
+    border: 1px solid #ddd;
+    padding: 25px 10px;
+    background-color: #fdfdfd;
+    transition: all 0.2s;
+}
+.card-item:hover {
+    border-color: #004b87;
+    background-color: #f4f8fb;
+}
+.icon-box {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 15px auto;
+    border: 1px solid #eee;
+    background-color: #fff;
+    padding: 10px;
+}
+.icon-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.card-item h4 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+    font-family: 'Malgun Gothic', sans-serif;
+}
+
+/* Institute Intro */
+.intro-box {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    line-height: 1.8;
+    color: #444;
+}
+.intro-box p {
+    margin-bottom: 15px;
+}
+.intro-box p:last-child {
+    margin-bottom: 0;
+}
+
+/* Notice Table (Recent Research) */
+.more-btn {
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+    font-size: 11px;
+    color: #666;
+    font-weight: normal;
+    font-family: 'Dotum', sans-serif;
+}
+.notice-table {
+    border-top: 1px solid #333;
+    margin-bottom: 0;
+}
+.notice-table th {
+    background-color: #f5f5f5;
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+    border-bottom: 1px solid #ccc !important;
+}
+.notice-table td {
+    border-bottom: 1px solid #e5e5e5;
+    color: #555;
+}
+.notice-table td a {
+    color: #333;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.notice-table td a:hover {
+    text-decoration: underline;
+}
+
+/* Research Stats */
+.section-stats {
+    background-color: #f0f4f8;
+    padding: 30px 20px;
+    border: 1px solid #d9e3ed;
+}
+.section-stats .section-title {
+    border-bottom: none;
+    margin-bottom: 30px;
+    padding-bottom: 0;
+}
+.stat-box {
+    background: #fff;
+    border: 1px solid #cbd6e2;
+    padding: 20px 10px;
+}
+.stat-box h5 {
+    font-size: 14px;
+    color: #555;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+.stat-num {
+    font-size: 28px;
+    font-weight: bold;
+    color: #004b87;
+    margin: 0;
+    font-family: 'Tahoma', sans-serif;
+    display: inline-block;
+}
+.stat-unit {
+    display: inline-block;
+    font-size: 13px;
+    color: #666;
+    margin-left: 3px;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.footer {
+    background-color: #333;
+    color: #999;
+    padding: 30px 0;
+    font-size: 12px;
+    border-top: 5px solid #555;
+}
+.f-links {
+    margin-bottom: 10px;
+}
+.f-links li {
+    padding-left: 0;
+    padding-right: 5px;
+}
+.f-links a {
+    color: #ccc;
+}
+.f-links a:hover {
+    color: #fff;
+}
+.footer address {
+    margin-bottom: 0;
+    line-height: 1.8;
+    font-style: normal;
+}
