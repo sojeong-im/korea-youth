@@ -37,7 +37,14 @@
                                 <li><a href="intro_history.html">연혁</a></li>
                             </ul>
                         </li>
-                        <li><a href="research.html">연구개발</a></li>
+                        <li class="dropdown active">
+                            <a href="research.html" class="dropdown-toggle" data-toggle="dropdown">연구개발 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="research.html">사회 실험</a></li>
+                                <li><a href="research_projects.html">주요 프로젝트</a></li>
+                                <li><a href="research_fields.html">연구분야</a></li>
+                            </ul>
+                        </li>
                         <li><a href="news.html">열린 소식</a></li>
                         <li><a href="support.html">후원</a></li>
                         <li><a href="cooperation.html">협동</a></li>
@@ -57,6 +64,12 @@
 
     <!-- Main Content -->
     <div class="container sub-content">
+        <div class="snb-tabs">
+            <a href="research.html" class="btn btn-default active">사회 실험</a>
+            <a href="research_projects.html" class="btn btn-default ">주요 프로젝트</a>
+            <a href="research_fields.html" class="btn btn-default ">연구분야</a>
+        </div>
+
         <!-- 1. 사회 실험 -->
         <div class="content-section">
             <h3 class="sub-title">1. 사회 실험 <small>Social Experiments</small></h3>
@@ -66,61 +79,8 @@
             </div>
         </div>
 
-        <!-- 2. 주요 프로젝트 -->
-        <div class="content-section">
-            <h3 class="sub-title">2. 주요 프로젝트 <small>Key Projects</small></h3>
-            <div class="placeholder-box">
-                <p class="text-muted">[안내] 현재 진행 중이거나 과거에 완료된 굵직한 연구 프로젝트들의 목록과 간략한 성과를 나열해 주세요.</p>
-                <ul style="margin-top: 15px;">
-                    <li>프로젝트 A: 청년 1인 가구 식습관 개선 연구 (2025)</li>
-                    <li>프로젝트 B: 비대면 환경에서의 의사소통 효율성 검증 (2024)</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- 3. 연구분야 (6가지) -->
-        <div class="content-section">
-            <h3 class="sub-title">3. 연구분야 <small>6 Research Areas</small></h3>
-            <div class="row">
-                <div class="col-xs-4">
-                    <div class="placeholder-box text-center" style="margin-bottom: 20px;">
-                        <h4>분야 1</h4>
-                        <p class="text-muted">내용 입력 대기</p>
-                    </div>
-                </div>
-                <div class="col-xs-4">
-                    <div class="placeholder-box text-center" style="margin-bottom: 20px;">
-                        <h4>분야 2</h4>
-                        <p class="text-muted">내용 입력 대기</p>
-                    </div>
-                </div>
-                <div class="col-xs-4">
-                    <div class="placeholder-box text-center" style="margin-bottom: 20px;">
-                        <h4>분야 3</h4>
-                        <p class="text-muted">내용 입력 대기</p>
-                    </div>
-                </div>
-                <div class="col-xs-4">
-                    <div class="placeholder-box text-center" style="margin-bottom: 20px;">
-                        <h4>분야 4</h4>
-                        <p class="text-muted">내용 입력 대기</p>
-                    </div>
-                </div>
-                <div class="col-xs-4">
-                    <div class="placeholder-box text-center" style="margin-bottom: 20px;">
-                        <h4>분야 5</h4>
-                        <p class="text-muted">내용 입력 대기</p>
-                    </div>
-                </div>
-                <div class="col-xs-4">
-                    <div class="placeholder-box text-center" style="margin-bottom: 20px;">
-                        <h4>분야 6</h4>
-                        <p class="text-muted">내용 입력 대기</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        
+</div>
 
     <!-- Footer -->
     <footer class="footer">
