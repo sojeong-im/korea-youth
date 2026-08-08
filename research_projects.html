@@ -73,13 +73,277 @@
         <!-- 2. 주요 프로젝트 -->
         <div class="content-section">
             <h3 class="sub-title">2. 주요 프로젝트 <small>Key Projects</small></h3>
-            <div class="placeholder-box">
-                <p class="text-muted">[안내] 현재 진행 중이거나 과거에 완료된 굵직한 연구 프로젝트들의 목록과 간략한 성과를 나열해 주세요.</p>
-                <ul style="margin-top: 15px;">
-                    <li>프로젝트 A: 청년 1인 가구 식습관 개선 연구 (2025)</li>
-                    <li>프로젝트 B: 비대면 환경에서의 의사소통 효율성 검증 (2024)</li>
-                </ul>
-            </div>
+            
+<style>
+/* Projects Overview */
+.projects-intro {
+    background: #f4f8fb;
+    border-left: 4px solid #004b87;
+    padding: 35px 40px;
+    margin-bottom: 50px;
+    border-radius: 0 12px 12px 0;
+}
+.projects-intro h4 {
+    font-size: 19px;
+    font-weight: 800;
+    color: #003366;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+.projects-intro ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+.projects-intro li {
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 15px;
+    padding-left: 24px;
+    position: relative;
+    line-height: 1.5;
+}
+.projects-intro li:last-child { margin-bottom: 0; }
+.projects-intro li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    background: #004b87;
+    border-radius: 50%;
+}
+
+/* Project Card */
+.project-card {
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    padding: 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+    transition: all 0.3s ease;
+}
+.project-card:hover {
+    box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+    border-color: #d0d5dd;
+    transform: translateY(-2px);
+}
+.project-header {
+    border-bottom: 2px solid #f0f2f5;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+.project-num {
+    color: #004b87;
+    font-weight: 900;
+    font-size: 18px;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+.project-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+    line-height: 1.4;
+}
+.project-subtitle {
+    font-size: 17px;
+    font-weight: 600;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* Sections inside card */
+.project-section {
+    margin-bottom: 30px;
+    background: #fafbfc;
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #f0f0f0;
+}
+.project-section:last-child {
+    margin-bottom: 0;
+}
+.section-badge {
+    display: inline-block;
+    background: #004b87;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+}
+.badge-bg { background: #6c757d; }
+.badge-itv { background: #004b87; }
+.badge-exp { background: #28a745; }
+
+.section-content {
+    font-size: 15px;
+    color: #444;
+    line-height: 1.7;
+    word-break: keep-all;
+}
+.section-content strong {
+    color: #222;
+    font-weight: 700;
+}
+.section-content ul {
+    padding-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+.section-content li {
+    margin-bottom: 10px;
+}
+.section-content li:last-child {
+    margin-bottom: 0;
+}
+</style>
+
+<div class="projects-intro">
+    <h4>핵심 프로젝트 추진 방향</h4>
+    <ul>
+        <li>신입사원 조기 퇴사율(30% 육박) 감소를 통해 기업의 재채용 비용 절감 및 청년의 안정적인 경제활동 정착 달성</li>
+        <li>포스트 코로나 ‘관계적 유기불안‘ 해체 프로젝트</li>
+        <li>불확실성으로 인한 청년 대인관계 애착 유형 및 경계선(Boundary) 설정 종합 지원 체계</li>
+    </ul>
+</div>
+
+<!-- Project 01 -->
+<div class="project-card">
+    <div class="project-header">
+        <div class="project-num">PROJECT 01</div>
+        <div class="project-title">신입사원 조기 퇴사율 절감 및 조직 적응 프로젝트</div>
+        <div class="project-subtitle">"입사 초기 대인관계 갈등 및 회피성 방어기제 해체를 통한 조직 리텐션(Retention) 강화"</div>
+    </div>
+    
+    <div class="project-section">
+        <div class="section-badge badge-bg">상세 배경 (Background)</div>
+        <div class="section-content">
+            <ul>
+                <li><strong>조기 퇴사의 실질적 원인:</strong> 청년 세대의 신입사원 조기 퇴사율이 30%에 육박하는 현 시점에서, 기업이 겪는 가장 큰 손실은 재채용 및 재교육 비용과 조직 연속성의 파괴입니다. 현장의 진짜 퇴사 사유는 단순한 직무 불만보다 <strong>'조직 내 대인관계 피로도'와 '갈등 회피'</strong>가 무의식적 기저 원인으로 작용하고 있습니다.</li>
+                <li><strong>방어적 패턴의 악순환:</strong> 피드백이나 업무 충돌 상황 시 갈등을 직면하기보다는 '침묵', '조용한 퇴사(Quiet Quitting)', '즉각적인 퇴사'라는 고립적 방어기제를 선택하는 경향이 강해지고 있습니다.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="project-section">
+        <div class="section-badge badge-itv">핵심 실행 및 연구 개입 (Intervention)</div>
+        <div class="section-content">
+            <ul>
+                <li><strong>무의식적 방어기제 정밀 진단:</strong> 상사/동료와의 소통 상황에서 발현되는 개인별 긴장·회피성 언어 및 행동 패턴을 구조화된 데이터로 추출.</li>
+                <li><strong>온보딩 소통 행동패턴 재설계:</strong> 직장 내 지적을 인격적 공격으로 받아들이는 인지 오류를 해체하고, 비난이나 회피 대신 솔직하게 전달하는 <strong>'주체적 대화 기술(Real-Talk)'</strong> 트레이닝.</li>
+                <li><strong>맞춤형 솔루션 투입:</strong> B2B 기업 HRD와 연계하여 1:1 및 그룹 맞춤형 조직 적응 인터벤션 세션 운영.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="project-section">
+        <div class="section-badge badge-exp">기대 효과 및 데이터적 가치 (Expected Impact)</div>
+        <div class="section-content">
+            <ul>
+                <li><strong>기업(B2B) 가치:</strong> 조기 이탈을 선제적으로 예방하여 재채용 비용 획기적 절감, 조직 내 소통 인프라 개선.</li>
+                <li><strong>청년 개인 가치:</strong> 대인관계 피로로 인한 퇴사 악순환을 끊어내고 안정적인 커리어 정착 달성.</li>
+                <li><strong>연구소 데이터 가치:</strong> 갈등 회피 데이터 체계적 수집을 통한 기업 맞춤형 리텐션 프레임워크 고도화.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Project 02 -->
+<div class="project-card">
+    <div class="project-header">
+        <div class="project-num">PROJECT 02</div>
+        <div class="project-title">포스트 코로나 '관계적 유기불안' 해체 프로젝트</div>
+        <div class="project-subtitle">"비대면 텍스트 소통 일반화로 심화된 청년 세대의 관계적 불안 및 탈집착 연구"</div>
+    </div>
+    
+    <div class="project-section">
+        <div class="section-badge badge-bg">상세 배경 (Background)</div>
+        <div class="section-content">
+            <ul>
+                <li><strong>소통 환경의 변화와 불안 증폭:</strong> 메신저 중심의 텍스트 소통이 대면 소통을 대체함에 따라, 청년 세대는 상대방의 '응답 지연 시간(Time-gap)', '단답형 말투', '모호한 표현'에 극도로 민감하게 반응합니다.</li>
+                <li><strong>유기불안(Abandonment Anxiety)의 일상화:</strong> 텍스트 반응을 확대 해석하여 "버림받을지도 모른다"는 심리적 불안을 느끼며, 이는 메시지 취소, 과호흡, 혹은 먼저 차단해 버리는 극단적 패턴으로 나타납니다.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="project-section">
+        <div class="section-badge badge-itv">핵심 실행 및 연구 개입 (Intervention)</div>
+        <div class="section-content">
+            <ul>
+                <li><strong>행동 데이터 수집 및 패턴 직면:</strong> 메신저 소통 시 발현되는 감정 수치와 무의식적 행동 데이터를 수집하고, 자신의 불안 패턴을 객관적으로 직면하도록 유도.</li>
+                <li><strong>낭만적 투사 및 인정 욕구 해체:</strong> 상대의 반응에 자신의 가치를 투영하는 얽힘을 분리하는 탈집착 실험 수행.</li>
+                <li><strong>주체적 소통 안정망 구축:</strong> 상대의 속도에 일상이 휘둘리지 않도록 일상적 거리두기와 감정 조절 루틴 적용.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="project-section">
+        <div class="section-badge badge-exp">기대 효과 및 데이터적 가치 (Expected Impact)</div>
+        <div class="section-content">
+            <ul>
+                <li><strong>청년 개인 가치:</strong> 모든 대인관계에서 심리적 주체성과 안정감 회복.</li>
+                <li><strong>일상 생산성 향상:</strong> 관계에 쏟던 에너지를 삶의 목표로 돌려 몰입도 증가.</li>
+                <li><strong>연구소 데이터 가치:</strong> 텍스트 소통 시대 청년 애착 불안 데이터 구조화 및 선제적 관계 건강 지원 솔루션 입증.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Project 03 -->
+<div class="project-card">
+    <div class="project-header">
+        <div class="project-num">PROJECT 03</div>
+        <div class="project-title">대인관계 애착 유형 및 경계선(Boundary) 종합 지원</div>
+        <div class="project-subtitle">"과도한 의존과 단절을 넘어, 나를 지키며 타인과 깊게 연결되는 건강한 거리감 형성"</div>
+    </div>
+    
+    <div class="project-section">
+        <div class="section-badge badge-bg">상세 배경 (Background)</div>
+        <div class="section-content">
+            <ul>
+                <li><strong>극단적 관계 패턴의 반복:</strong> 타인에게 무조건 맞춰주는 '과도한 의존/불안형 반응'과 작은 마찰에도 상대를 완전히 끊어내는 '회피/단절형 반응'을 번갈아 보이는 문제를 겪고 있습니다.</li>
+                <li><strong>경계선(Boundary)의 부재:</strong> 심리적 경계선이 모호하여 타인의 요구에 쉽게 침범당하거나 타인에게 과도하게 개입하여 상처를 줍니다. 이는 장기적으로 사회적 고립 및 은둔의 원인이 됩니다.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="project-section">
+        <div class="section-badge badge-itv">핵심 실행 및 연구 개입 (Intervention)</div>
+        <div class="section-content">
+            <ul>
+                <li><strong>애착 및 경계선 패턴 정밀 진단:</strong> 애착 유형별 대인관계 상호작용 행동 방식 다각도 진단.</li>
+                <li><strong>3단계 경계선(Boundary) Re-Design 제공:</strong>
+                    <ul>
+                        <li><strong>1단계(침범 인지):</strong> 나의 한계를 넘어서는 타인의 요구 식별.</li>
+                        <li><strong>2단계(건강한 거절):</strong> 상대를 공격하지 않으며 나를 보호하는 주체적 언어 표현법 훈련.</li>
+                        <li><strong>3단계(연결 유지):</strong> 나를 잃지 않으면서 타인과 교류하는 적정 심리 거리 수립.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="project-section">
+        <div class="section-badge badge-exp">기대 효과 및 데이터적 가치 (Expected Impact)</div>
+        <div class="section-content">
+            <ul>
+                <li><strong>청년 개인 가치:</strong> '나다운 자아 정체성'을 지켜내며 성숙하고 안정적인 대인관계 망 형성.</li>
+                <li><strong>공공/사회적(B2G) 가치:</strong> 고립·은둔 위험군 청년을 선제적으로 발굴·예방하여 사회안전망 구축 및 비용 절감.</li>
+                <li><strong>연구소 데이터 가치:</strong> 경계선 유형별 행동 변화 데이터를 체계화하여 공공기관 청년 마음건강 정책에 반영.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
         </div>
 
         
