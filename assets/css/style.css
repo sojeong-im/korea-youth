@@ -418,3 +418,52 @@ a:hover, a:focus {
     border-bottom: 2px solid #004b87;
     padding-bottom: 3px;
 }
+
+/* GNB Dropdown Hover */
+.gnb .dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+.gnb .dropdown-menu {
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 140px;
+    text-align: center;
+    border-top: 2px solid #004b87;
+    border-radius: 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 0;
+}
+.gnb .dropdown-menu > li > a {
+    padding: 12px 15px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+}
+.gnb .dropdown-menu > li > a:hover {
+    background-color: #f5f5f5;
+    color: #004b87;
+    font-weight: bold;
+}
+
+/* Sub-nav Tab Menu (SNB) */
+.snb-tabs {
+    margin: -10px 0 40px 0;
+    text-align: center;
+    border-bottom: 2px solid #004b87;
+}
+.snb-tabs .btn {
+    border-radius: 0;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    background-color: #f9f9f9;
+    color: #555;
+    font-size: 15px;
+    padding: 12px 35px;
+    font-weight: bold;
+    margin: 0 -2px;
+}
+.snb-tabs .btn.active, .snb-tabs .btn:hover {
+    background-color: #004b87;
+    color: #fff;
+    border-color: #004b87;
+}
