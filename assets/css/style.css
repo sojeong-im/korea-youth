@@ -467,3 +467,36 @@ a:hover, a:focus {
     color: #fff;
     border-color: #004b87;
 }
+
+/* ==========================================================================
+   Responsive Adjustments
+   ========================================================================== */
+@media (max-width: 767px) {
+    .header { padding-bottom: 20px; text-align: center; }
+    .logo-area img { 
+        height: 120px !important; 
+        margin: 0 auto -20px auto !important; 
+        display: block; 
+    }
+    .gnb-area { padding-top: 15px; }
+    .gnb.list-inline.text-right { text-align: center !important; }
+    .gnb { display: flex; flex-wrap: wrap; justify-content: center; }
+    .gnb li { padding: 5px 8px; }
+    
+    .visual-content h2 { font-size: 24px; }
+    .visual-content p { font-size: 14px; }
+    
+    .text-center-xs { text-align: center !important; }
+    .footer-logo h2 { padding-top: 10px !important; }
+    
+    /* Timeline Mobile Fix */
+    .timeline::after { left: 20px !important; }
+    .timeline-item { width: 100% !important; padding-left: 50px !important; padding-right: 15px !important; }
+    .timeline-item.right { left: 0 !important; }
+    .timeline-item::after { left: 12px !important; top: 30px !important; right: auto !important; }
+    
+    /* Tables */
+    .notice-table { font-size: 11px; }
+    .stat-num { font-size: 20px; }
+    .sub-title { font-size: 18px; }
+}
