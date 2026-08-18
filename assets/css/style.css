@@ -471,7 +471,7 @@ a:hover, a:focus {
 /* ==========================================================================
    Responsive Adjustments
    ========================================================================== */
-@media (max-width: 767px) {
+@media (max-width: 991px) {
     .header { padding-bottom: 20px; text-align: center; }
     .logo-area img { 
         height: 120px !important; 

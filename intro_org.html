@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="한국청년행동패턴연구소(KYPI)는 대한민국 청년들의 행동 데이터를 연구하고, 불확실성의 시대에 청년 스스로의 중심과 무한한 가능성을 세우는 연구소입니다.">
     <meta name="keywords" content="KYPI, 한국청년행동패턴연구소, 청년연구, 행동패턴, 사회성데이터, 청년고립예방, 청년정책, 커리어브랜딩, 심리적안전망">
     <meta property="og:type" content="website">
@@ -211,7 +212,16 @@
     position: relative;
     z-index: 1;
 }
+
+@media (max-width: 991px) {
+    .org-tree-container {
+        justify-content: flex-start;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
 </style>
+
 
 <div class="org-tree-container">
     <div class="org-tree">
