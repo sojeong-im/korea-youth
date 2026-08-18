@@ -225,20 +225,30 @@
 
 <div class="org-tree-container">
     <div class="org-tree">
-        <div class="wing-container">
-            <div class="wing-connector"></div>
-            <div class="org-card" style="width: 160px; z-index: 2;">감사(2인)</div>
-            <div class="org-card main-head" style="width: 160px; z-index: 2;">소장</div>
-            <div class="org-card" style="width: 180px; z-index: 2;">연구회 운영위원회</div>
-        </div>
-        <div class="wing-line-down" style="height: 180px;">
-            <!-- Side branch 1 -->
-            <div style="position: absolute; top: 45px; left: 0; width: 100px; height: 2px; background-color: #cbd5e1; z-index: 1;"></div>
-            <div class="org-card" style="position: absolute; top: 20px; left: 100px; width: 220px; font-size: 16px; padding: 15px;">연구윤리위원회</div>
+        <div style="position: relative; width: 680px; margin: 0 auto;">
+            <!-- Horizontal Connector -->
+            <div style="position: absolute; top: 34px; left: 80px; right: 90px; height: 2px; background-color: #cbd5e1; z-index: 1;"></div>
+            
+            <!-- Main Vertical Stem -->
+            <div style="position: absolute; top: 35px; left: 50%; width: 2px; height: 220px; background-color: #cbd5e1; z-index: 1; transform: translateX(-50%);"></div>
 
-            <!-- Side branch 2 -->
-            <div style="position: absolute; top: 135px; left: 0; width: 100px; height: 2px; background-color: #cbd5e1; z-index: 1;"></div>
-            <div class="org-card" style="position: absolute; top: 105px; left: 100px; width: 220px; font-size: 16px; padding: 15px;">학술대회 조직위원회<br><span style="font-weight: 500;">심사위원회</span></div>
+            <!-- Side Branch 1 -->
+            <div style="position: absolute; top: 110px; left: 50%; width: 100px; height: 2px; background-color: #cbd5e1; z-index: 1;"></div>
+            <div class="org-card" style="position: absolute; top: 111px; left: calc(50% + 100px); width: 220px; font-size: 16px; padding: 12px 15px; transform: translateY(-50%);">연구윤리위원회</div>
+
+            <!-- Side Branch 2 -->
+            <div style="position: absolute; top: 195px; left: 50%; width: 100px; height: 2px; background-color: #cbd5e1; z-index: 1;"></div>
+            <div class="org-card" style="position: absolute; top: 196px; left: calc(50% + 100px); width: 220px; font-size: 16px; padding: 15px; transform: translateY(-50%);">학술대회 조직위원회<br><span style="font-weight: 500;">심사위원회</span></div>
+
+            <!-- The 3 Cards in Top Row -->
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 2;">
+                <div class="org-card" style="width: 160px; height: 70px;">감사(2인)</div>
+                <div class="org-card main-head" style="width: 160px; height: 70px;">소장</div>
+                <div class="org-card" style="width: 180px; height: 70px;">연구회 운영위원회</div>
+            </div>
+
+            <!-- Spacer to push the UL tree down -->
+            <div style="height: 185px;"></div>
         </div>
         <ul style="padding-top: 0;">
             <li style="padding-top: 0;">
