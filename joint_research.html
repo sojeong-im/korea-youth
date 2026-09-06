@@ -594,15 +594,11 @@
 
                     <!-- 6. 희망 장소 -->
                     <div class="kypi-field-group">
-                        <label class="kypi-field-label" for="userLocation">희망 장소</label>
-                        <select id="userLocation" name="userLocation" class="kypi-select" required>
-                            <option value="" disabled selected>장소를 선택해주세요</option>
-                            <option value="광화문 연구소 (종로3길 17 광화문D타워)">광화문 연구소 (종로3길 17 광화문D타워)</option>
-                            <option value="강남 거점 세미나 라운지 (강남역 인근)">강남 거점 세미나 라운지 (강남역 인근)</option>
-                            <option value="신촌/홍대 청년 허브 스튜디오">신촌/홍대 청년 허브 스튜디오</option>
-                            <option value="온라인 비대면 참여 (Zoom 화상 미팅)">온라인 비대면 참여 (Zoom 화상 미팅)</option>
-                            <option value="추후 상호 협의 후 결정">추후 상호 협의 후 결정</option>
-                        </select>
+                        <label class="kypi-field-label">희망 장소</label>
+                        <input type="hidden" name="userLocation" id="userLocation" value="연구원 협의 후 조정">
+                        <div style="height: 50px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 12px; padding: 0 16px; display: flex; align-items: center; font-size: 15px; color: #6b7280;">
+                            📍 연구원 협의 후 조정
+                        </div>
                     </div>
 
                     <!-- 7. 희망 일자 (복수 선택 가능) -->
