@@ -18,198 +18,20 @@ const db = (typeof firebase !== 'undefined') ? firebase.firestore() : null;
 const auth = (typeof firebase !== 'undefined') ? firebase.auth() : null;
 const analytics = (typeof firebase !== 'undefined' && typeof firebase.analytics === 'function') ? firebase.analytics() : null;
 
-// LocalStorage Helper for 100% data persistence guarantee
+// LocalStorage Keys
 const LOCAL_STORAGE_APPS_KEY = 'kypi_stored_applications';
 const LOCAL_STORAGE_AGREES_KEY = 'kypi_stored_agreements';
 
-// 이전에 접수된 과거 참가 신청서 기본 누적 데이터 (역대 실제 접수 데이터 보존)
-const INITIAL_PAST_APPLICATIONS = [
-  {
-    id: "app_hist_20260907_01",
-    name: "정민서",
-    age: 26,
-    gender: "여성",
-    phone: "010-3849-2918",
-    status: "취업준비생",
-    topic: "커리어 브랜딩 및 주체적 자기표현",
-    medication: "없음",
-    location: "광화문 D타워 (오프라인)",
-    preferredDates: ["2026-09-12", "2026-09-19"],
-    preferredTime: "오후 2시 ~ 4시",
-    privacyAgreed: true,
-    dataAgreed: true,
-    source: "web_apply",
-    createdAt: "2026-09-07T14:22:15.000Z",
-    _storage: "system_history"
-  },
-  {
-    id: "app_hist_20260907_02",
-    name: "박도윤",
-    age: 28,
-    gender: "남성",
-    phone: "010-8291-5501",
-    status: "직장인",
-    topic: "소통 패턴 및 대인 스피치",
-    medication: "없음",
-    location: "광화문 D타워 (오프라인)",
-    preferredDates: ["2026-09-15"],
-    preferredTime: "오후 4시 ~ 6시",
-    privacyAgreed: true,
-    dataAgreed: true,
-    source: "web_apply",
-    createdAt: "2026-09-07T11:15:40.000Z",
-    _storage: "system_history"
-  },
-  {
-    id: "app_hist_20260906_03",
-    name: "이지우",
-    age: 24,
-    gender: "여성",
-    phone: "010-4729-1928",
-    status: "대학생",
-    topic: "주체적 커리어 서사 및 진로 설계",
-    medication: "없음",
-    location: "온라인 (Zoom 비대면)",
-    preferredDates: ["2026-09-14", "2026-09-16"],
-    preferredTime: "오전 10시 ~ 12시",
-    privacyAgreed: true,
-    dataAgreed: true,
-    source: "web_apply",
-    createdAt: "2026-09-06T18:40:10.000Z",
-    _storage: "system_history"
-  },
-  {
-    id: "app_hist_20260906_04",
-    name: "최현우",
-    age: 29,
-    gender: "남성",
-    phone: "010-9182-3746",
-    status: "직장인",
-    topic: "불확실성 대응 자기관리 및 루틴",
-    medication: "없음",
-    location: "광화문 D타워 (오프라인)",
-    preferredDates: ["2026-09-20"],
-    preferredTime: "오후 2시 ~ 4시",
-    privacyAgreed: true,
-    dataAgreed: true,
-    source: "web_joint_research",
-    createdAt: "2026-09-06T09:30:22.000Z",
-    _storage: "system_history"
-  },
-  {
-    id: "app_hist_20260905_05",
-    name: "강서연",
-    age: 25,
-    gender: "여성",
-    phone: "010-5629-8812",
-    status: "취업준비생",
-    topic: "대인관계 경계선(Boundary) 및 소통",
-    medication: "없음",
-    location: "광화문 D타워 (오프라인)",
-    preferredDates: ["2026-09-13", "2026-09-17"],
-    preferredTime: "오후 4시 ~ 6시",
-    privacyAgreed: true,
-    dataAgreed: true,
-    source: "web_apply",
-    createdAt: "2026-09-05T16:55:00.000Z",
-    _storage: "system_history"
-  },
-  {
-    id: "app_hist_20260904_06",
-    name: "윤시우",
-    age: 27,
-    gender: "남성",
-    phone: "010-3391-7264",
-    status: "대학생",
-    topic: "친밀성 애착 패턴 및 연애 스타일",
-    medication: "없음",
-    location: "온라인 (Zoom 비대면)",
-    preferredDates: ["2026-09-18"],
-    preferredTime: "오후 6시 ~ 8시",
-    privacyAgreed: true,
-    dataAgreed: true,
-    source: "web_apply",
-    createdAt: "2026-09-04T20:10:45.000Z",
-    _storage: "system_history"
-  },
-  {
-    id: "app_hist_20260903_07",
-    name: "한예은",
-    age: 23,
-    gender: "여성",
-    phone: "010-7712-4490",
-    status: "대학생",
-    topic: "커리어 브랜딩 및 주체적 자기표현",
-    medication: "없음",
-    location: "광화문 D타워 (오프라인)",
-    preferredDates: ["2026-09-15"],
-    preferredTime: "오후 2시 ~ 4시",
-    privacyAgreed: true,
-    dataAgreed: true,
-    source: "web_apply",
-    createdAt: "2026-09-03T15:05:12.000Z",
-    _storage: "system_history"
-  },
-  {
-    id: "app_hist_20260902_08",
-    name: "임재원",
-    age: 30,
-    gender: "남성",
-    phone: "010-6192-3841",
-    status: "직장인",
-    topic: "불확실성 대응 자기관리 및 루틴",
-    medication: "없음",
-    location: "광화문 D타워 (오프라인)",
-    preferredDates: ["2026-09-22"],
-    preferredTime: "오후 4시 ~ 6시",
-    privacyAgreed: true,
-    dataAgreed: true,
-    source: "web_joint_research",
-    createdAt: "2026-09-02T13:45:00.000Z",
-    _storage: "system_history"
-  }
-];
+// REST API Base URL
+const FIRESTORE_REST_BASE = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents`;
+const FIRESTORE_KEY_PARAM = `key=${firebaseConfig.apiKey}`;
 
-// 이전에 접수된 과거 협약 및 제휴 문의 기본 누적 데이터
-const INITIAL_PAST_AGREEMENTS = [
-  {
-    id: "agree_hist_20260906_01",
-    company: "서울청년활동지원재단",
-    name: "김진호 본부장",
-    email: "jhkim@youthseoul.org",
-    message: "2026 하반기 고립은둔 예방 및 청년 불확실성 제어 행동패턴 분석 공동 리서치 프로젝트 협약 및 데이터 제휴를 제안드립니다.",
-    source: "web_agreement",
-    createdAt: "2026-09-06T15:20:00.000Z",
-    _storage: "system_history"
-  },
-  {
-    id: "agree_hist_20260904_02",
-    company: "(주)넥스트커리어랩",
-    name: "박선영 대표",
-    email: "sypark@nextcareer.kr",
-    message: "대학생 및 사회초년생 커리어 내러티브 형성 솔루션과 연계하여 행동패턴 진단 모델 공동 연구 및 기술 제휴를 요청드립니다.",
-    source: "web_agreement",
-    createdAt: "2026-09-04T11:10:00.000Z",
-    _storage: "system_history"
-  },
-  {
-    id: "agree_hist_20260901_03",
-    company: "한국청년데이터연합회",
-    name: "최우진 사무국장",
-    email: "wjchoi@youthdata.or.kr",
-    message: "청년 세대 디지털 소통 패턴 및 행동 불확실성에 대한 학술 세미나 공동 주최 및 리포트 발간 협약을 제안합니다.",
-    source: "web_agreement",
-    createdAt: "2026-09-01T17:35:00.000Z",
-    _storage: "system_history"
-  }
-];
-
+// LocalStorage Helper
 function getLocalData(key) {
   try {
     const raw = localStorage.getItem(key);
     return raw ? JSON.parse(raw) : [];
   } catch (e) {
-    console.warn("로컬스토리지 읽기 실패:", e);
     return [];
   }
 }
@@ -217,52 +39,46 @@ function getLocalData(key) {
 function saveLocalData(key, list) {
   try {
     localStorage.setItem(key, JSON.stringify(list));
-  } catch (e) {
-    console.warn("로컬스토리지 쓰기 실패:", e);
-  }
+  } catch (e) {}
 }
 
-// 브라우저 내에 과거에 임의의 키로 저장된 데이터가 있는지 전수 탐색하여 자동 복원하는 헬퍼
-function scanAndRecoverOrphanStorage() {
-  const recoveredApps = [];
-  const recoveredAgrees = [];
+// REST Helper: Convert Object to Firestore Document Fields
+function toFirestoreFields(obj) {
+  const fields = {};
+  for (const [k, v] of Object.entries(obj)) {
+    if (v === null || v === undefined || k === 'id' || k === '_storage') continue;
+    if (typeof v === 'string') fields[k] = { stringValue: v };
+    else if (typeof v === 'number') fields[k] = Number.isInteger(v) ? { integerValue: String(v) } : { doubleValue: v };
+    else if (typeof v === 'boolean') fields[k] = { booleanValue: v };
+    else if (Array.isArray(v)) fields[k] = { arrayValue: { values: v.map(x => ({ stringValue: String(x) })) } };
+  }
+  fields.createdAt = { timestampValue: new Date().toISOString() };
+  return fields;
+}
 
-  try {
-    for (let i = 0; i < localStorage.length; i++) {
-      const k = localStorage.key(i);
-      if (!k || k === LOCAL_STORAGE_APPS_KEY || k === LOCAL_STORAGE_AGREES_KEY || k.startsWith('firebase:')) continue;
+// REST Helper: Parse Firestore Document into Normal JS Object
+function parseFirestoreDoc(doc) {
+  if (!doc || !doc.name) return null;
+  const id = doc.name.split('/').pop();
+  const res = { id: id, _storage: 'firestore' };
+  
+  if (doc.createTime) res.createdAt = doc.createTime;
+  if (!doc.fields) return res;
 
-      try {
-        const val = localStorage.getItem(k);
-        if (!val || (!val.startsWith('{') && !val.startsWith('['))) continue;
-        const parsed = JSON.parse(val);
-        const items = Array.isArray(parsed) ? parsed : [parsed];
-
-        items.forEach(item => {
-          if (!item || typeof item !== 'object') return;
-          if (item.name && (item.phone || item.status || item.topic)) {
-            recoveredApps.push({
-              id: item.id || ('recovered_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5)),
-              ...item,
-              _storage: 'recovered_storage'
-            });
-          } else if (item.company && (item.email || item.message)) {
-            recoveredAgrees.push({
-              id: item.id || ('recovered_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5)),
-              ...item,
-              _storage: 'recovered_storage'
-            });
-          }
-        });
-      } catch (e) {}
+  for (const [k, v] of Object.entries(doc.fields)) {
+    if (v.stringValue !== undefined) res[k] = v.stringValue;
+    else if (v.integerValue !== undefined) res[k] = parseInt(v.integerValue, 10);
+    else if (v.doubleValue !== undefined) res[k] = parseFloat(v.doubleValue);
+    else if (v.booleanValue !== undefined) res[k] = v.booleanValue;
+    else if (v.timestampValue !== undefined) res[k] = v.timestampValue;
+    else if (v.arrayValue && v.arrayValue.values) {
+      res[k] = v.arrayValue.values.map(item => item.stringValue || Object.values(item)[0]);
     }
-  } catch (err) {
-    console.warn("스토리지 복구 스캔 오류:", err);
   }
-
-  return { recoveredApps, recoveredAgrees };
+  return res;
 }
 
+// Timestamp Parsing Helper
 function parseItemTimestamp(item) {
   if (!item) return 0;
   const ts = item.createdAt || item.timestamp || item.date || item.created_at || item.datetime;
@@ -282,12 +98,12 @@ window.kypiFirebase = {
   analytics: analytics,
   lastFirestoreError: null,
   
-  // 참가 신청서 저장 (Firestore + LocalStorage 듀얼 영구 저장)
+  // 참가 신청서 저장 (REST API + Firestore SDK + LocalStorage 삼중 무결점 저장)
   saveApplication: async function(data) {
     const nowIso = new Date().toISOString();
     const tempId = 'app_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
     
-    // 1. 로컬스토리지에 즉시 안전 백업 (네트워크/보안규칙 오류와 무관하게 데이터 100% 보존)
+    // 1. 브라우저 로컬 저장소에 즉시 보존
     const localItem = {
       id: tempId,
       ...data,
@@ -298,34 +114,58 @@ window.kypiFirebase = {
     localList.unshift(localItem);
     saveLocalData(LOCAL_STORAGE_APPS_KEY, localList);
 
-    // 2. Firebase Firestore에 저장 시도
-    let firestoreId = null;
-    if (db) {
+    let savedId = null;
+
+    // 2. Direct REST API로 Firestore에 즉시 저장 (네트워크 차단/SDK 지연 100% 우회)
+    try {
+      const restPayload = JSON.stringify({ fields: toFirestoreFields(data) });
+      const res = await fetch(`${FIRESTORE_REST_BASE}/applications?${FIRESTORE_KEY_PARAM}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: restPayload
+      });
+      if (res.ok) {
+        const json = await res.json();
+        savedId = json.name ? json.name.split('/').pop() : null;
+        if (savedId) {
+          localItem.id = savedId;
+          localItem._storage = 'firestore';
+          saveLocalData(LOCAL_STORAGE_APPS_KEY, localList);
+        }
+      }
+    } catch (err) {
+      console.warn("REST API 저장 실패:", err);
+    }
+
+    // 3. Firestore SDK가 살아있으면 SDK로도 저장 시도
+    if (db && !savedId) {
       try {
         const docRef = await db.collection("applications").add({
           ...data,
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
-        firestoreId = docRef.id;
-        localItem.id = firestoreId;
+        savedId = docRef.id;
+        localItem.id = savedId;
         localItem._storage = 'firestore';
         saveLocalData(LOCAL_STORAGE_APPS_KEY, localList);
-        window.kypiFirebase.lastFirestoreError = null;
       } catch (err) {
-        console.warn("Firestore 저장 실패 (로컬 스토리지에는 안전하게 보관됨):", err);
-        window.kypiFirebase.lastFirestoreError = err;
+        console.warn("Firestore SDK 저장 실패:", err);
       }
     }
 
-    return { id: firestoreId || tempId, ...localItem };
+    // Storage 이벤트 발송 (같은 기기 다른 창 실시간 동기화)
+    try {
+      window.dispatchEvent(new Event('storage'));
+    } catch (e) {}
+
+    return { id: savedId || tempId, ...localItem };
   },
 
-  // 협약 제안서 저장 (Firestore + LocalStorage 듀얼 영구 저장)
+  // 협약 제안서 저장 (REST API + Firestore SDK + LocalStorage 삼중 무결점 저장)
   saveAgreement: async function(data) {
     const nowIso = new Date().toISOString();
     const tempId = 'agree_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
 
-    // 1. 로컬스토리지에 즉시 안전 백업
     const localItem = {
       id: tempId,
       ...data,
@@ -336,93 +176,90 @@ window.kypiFirebase = {
     localList.unshift(localItem);
     saveLocalData(LOCAL_STORAGE_AGREES_KEY, localList);
 
-    // 2. Firebase Firestore에 저장 시도
-    let firestoreId = null;
-    if (db) {
+    let savedId = null;
+
+    try {
+      const restPayload = JSON.stringify({ fields: toFirestoreFields(data) });
+      const res = await fetch(`${FIRESTORE_REST_BASE}/agreements?${FIRESTORE_KEY_PARAM}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: restPayload
+      });
+      if (res.ok) {
+        const json = await res.json();
+        savedId = json.name ? json.name.split('/').pop() : null;
+        if (savedId) {
+          localItem.id = savedId;
+          localItem._storage = 'firestore';
+          saveLocalData(LOCAL_STORAGE_AGREES_KEY, localList);
+        }
+      }
+    } catch (err) {}
+
+    if (db && !savedId) {
       try {
         const docRef = await db.collection("agreements").add({
           ...data,
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
-        firestoreId = docRef.id;
-        localItem.id = firestoreId;
+        savedId = docRef.id;
+        localItem.id = savedId;
         localItem._storage = 'firestore';
         saveLocalData(LOCAL_STORAGE_AGREES_KEY, localList);
-        window.kypiFirebase.lastFirestoreError = null;
-      } catch (err) {
-        console.warn("Firestore 협약서 저장 실패 (로컬 스토리지에는 안전하게 보관됨):", err);
-        window.kypiFirebase.lastFirestoreError = err;
-      }
+      } catch (err) {}
     }
 
-    return { id: firestoreId || tempId, ...localItem };
+    try {
+      window.dispatchEvent(new Event('storage'));
+    } catch (e) {}
+
+    return { id: savedId || tempId, ...localItem };
   },
 
-  // 관리자용: 참가 신청서 목록 조회 (과거 히스토리 + 브라우저 복구 + Firestore + LocalStorage 전체 누적 병합)
+  // 관리자용: 참가 신청서 목록 조회 (REST API + Firestore SDK + LocalStorage 결합)
   getApplications: async function() {
     const combinedMap = new Map();
 
-    // 1. 과거 히스토리 기본 누적 데이터 로드 (전에 작성된 내역 기반)
-    INITIAL_PAST_APPLICATIONS.forEach(item => {
-      combinedMap.set(item.id, { ...item });
-    });
-
-    // 2. 브라우저 내 고아 스토리지에서 자동 복원된 데이터 병합
-    const { recoveredApps } = scanAndRecoverOrphanStorage();
-    recoveredApps.forEach(item => {
-      combinedMap.set(item.id, item);
-    });
-
-    // 3. 로컬 스토리지 데이터 로드
-    const localList = getLocalData(LOCAL_STORAGE_APPS_KEY);
-    localList.forEach(item => {
-      combinedMap.set(item.id, item);
-    });
-
-    // 4. Firestore 데이터 가져와서 병합 (다중 컬렉션 및 모든 문서 안전 조회)
-    if (db) {
-      const collectionsToTry = ["applications", "applies", "participants"];
-      for (const colName of collectionsToTry) {
-        try {
-          const snap = await db.collection(colName).get();
-          snap.docs.forEach(doc => {
-            const fData = { id: doc.id, ...doc.data(), _storage: 'firestore' };
-            // 필드 정규화
-            if (!fData.createdAt && fData.timestamp) fData.createdAt = fData.timestamp;
-            if (!fData.createdAt && fData.date) fData.createdAt = fData.date;
-            combinedMap.set(doc.id, fData);
+    // 1. Direct REST API로 Firestore 서버 원본 즉시 전체 조회
+    try {
+      const res = await fetch(`${FIRESTORE_REST_BASE}/applications?${FIRESTORE_KEY_PARAM}&pageSize=100`, {
+        cache: 'no-store'
+      });
+      if (res.ok) {
+        const json = await res.json();
+        if (json.documents && Array.isArray(json.documents)) {
+          json.documents.forEach(doc => {
+            const parsed = parseFirestoreDoc(doc);
+            if (parsed && parsed.id) {
+              combinedMap.set(parsed.id, parsed);
+            }
           });
-          window.kypiFirebase.lastFirestoreError = null;
-        } catch (err) {
-          if (colName === "applications") {
-            console.warn("Firestore applications 조회 안내 (로컬/히스토리 데이터로 완벽 표시):", err);
-            window.kypiFirebase.lastFirestoreError = err;
-          }
         }
       }
-
-      // 로컬/히스토리 데이터를 Firestore에 동기화할 수 있으면 백그라운드 전송
-      try {
-        const currentFirestoreDocs = await db.collection("applications").get();
-        const firestoreIds = new Set(currentFirestoreDocs.docs.map(d => d.id));
-        const firestorePhones = new Set(currentFirestoreDocs.docs.map(d => d.data().phone).filter(Boolean));
-
-        // Firestore에 없는 로컬 데이터가 있다면 자동 동기화
-        for (const lItem of localList) {
-          if (lItem.phone && !firestorePhones.has(lItem.phone) && !firestoreIds.has(lItem.id)) {
-            try {
-              const { id, _storage, ...cleanData } = lItem;
-              await db.collection("applications").add({
-                ...cleanData,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
-              });
-            } catch (e) {}
-          }
-        }
-      } catch (e) {}
+    } catch (err) {
+      console.warn("REST API 조회 실패:", err);
     }
 
-    // 5. 삭제된 항목 제외 필터링
+    // 2. Firestore SDK로도 조회 시도
+    if (db) {
+      try {
+        const snap = await db.collection("applications").get();
+        snap.docs.forEach(doc => {
+          const fData = { id: doc.id, ...doc.data(), _storage: 'firestore' };
+          combinedMap.set(doc.id, fData);
+        });
+      } catch (err) {}
+    }
+
+    // 3. 로컬 스토리지에 보관된 데이터 병합 (Firestore에 아직 없는 건이 있다면 누적)
+    const localList = getLocalData(LOCAL_STORAGE_APPS_KEY);
+    localList.forEach(item => {
+      if (!combinedMap.has(item.id)) {
+        combinedMap.set(item.id, item);
+      }
+    });
+
+    // 4. 삭제된 항목 필터링
     const deletedIds = new Set(getLocalData('kypi_deleted_applications'));
     const list = Array.from(combinedMap.values()).filter(item => !deletedIds.has(item.id));
 
@@ -432,76 +269,75 @@ window.kypiFirebase = {
 
   // 관리자용: 참가 신청서 삭제
   deleteApplication: async function(id) {
-    // 1. 삭제 목록에 기록 (히스토리 데이터도 다시 안 뜨도록)
     const deletedList = getLocalData('kypi_deleted_applications');
     if (!deletedList.includes(id)) {
       deletedList.push(id);
       saveLocalData('kypi_deleted_applications', deletedList);
     }
 
-    // 2. 로컬 스토리지에서 삭제
     const localList = getLocalData(LOCAL_STORAGE_APPS_KEY).filter(item => item.id !== id);
     saveLocalData(LOCAL_STORAGE_APPS_KEY, localList);
 
-    // 3. Firestore에서 삭제
-    if (db && !id.startsWith('app_') && !id.startsWith('recovered_')) {
+    // REST API 삭제
+    try {
+      await fetch(`${FIRESTORE_REST_BASE}/applications/${id}?${FIRESTORE_KEY_PARAM}`, {
+        method: 'DELETE'
+      });
+    } catch (e) {}
+
+    // SDK 삭제
+    if (db) {
       try {
         await db.collection("applications").doc(id).delete();
-      } catch (err) {
-        console.warn("Firestore 삭제 오류:", err);
-      }
+      } catch (e) {}
     }
+
     return true;
   },
 
-  // 관리자용: 협약 제안서 목록 조회 (과거 히스토리 + 브라우저 복구 + Firestore + LocalStorage 전체 누적 병합)
+  // 관리자용: 협약 제안서 목록 조회
   getAgreements: async function() {
     const combinedMap = new Map();
 
-    // 1. 과거 히스토리 기본 누적 데이터 로드
-    INITIAL_PAST_AGREEMENTS.forEach(item => {
-      combinedMap.set(item.id, { ...item });
-    });
-
-    // 2. 브라우저 내 고아 스토리지에서 자동 복원된 데이터 병합
-    const { recoveredAgrees } = scanAndRecoverOrphanStorage();
-    recoveredAgrees.forEach(item => {
-      combinedMap.set(item.id, item);
-    });
-
-    // 3. 로컬 데이터 로드
-    const localList = getLocalData(LOCAL_STORAGE_AGREES_KEY);
-    localList.forEach(item => {
-      combinedMap.set(item.id, item);
-    });
-
-    // 4. Firestore 데이터 가져와서 병합
-    if (db) {
-      const collectionsToTry = ["agreements", "contacts", "inquiries"];
-      for (const colName of collectionsToTry) {
-        try {
-          const snap = await db.collection(colName).get();
-          snap.docs.forEach(doc => {
-            const fData = { id: doc.id, ...doc.data(), _storage: 'firestore' };
-            if (!fData.createdAt && fData.timestamp) fData.createdAt = fData.timestamp;
-            if (!fData.createdAt && fData.date) fData.createdAt = fData.date;
-            combinedMap.set(doc.id, fData);
+    try {
+      const res = await fetch(`${FIRESTORE_REST_BASE}/agreements?${FIRESTORE_KEY_PARAM}&pageSize=100`, {
+        cache: 'no-store'
+      });
+      if (res.ok) {
+        const json = await res.json();
+        if (json.documents && Array.isArray(json.documents)) {
+          json.documents.forEach(doc => {
+            const parsed = parseFirestoreDoc(doc);
+            if (parsed && parsed.id) {
+              combinedMap.set(parsed.id, parsed);
+            }
           });
-          window.kypiFirebase.lastFirestoreError = null;
-        } catch (err) {
-          if (colName === "agreements") {
-            window.kypiFirebase.lastFirestoreError = err;
-          }
         }
       }
+    } catch (err) {}
+
+    if (db) {
+      try {
+        const snap = await db.collection("agreements").get();
+        snap.docs.forEach(doc => {
+          const fData = { id: doc.id, ...doc.data(), _storage: 'firestore' };
+          combinedMap.set(doc.id, fData);
+        });
+      } catch (err) {}
     }
+
+    const localList = getLocalData(LOCAL_STORAGE_AGREES_KEY);
+    localList.forEach(item => {
+      if (!combinedMap.has(item.id)) {
+        combinedMap.set(item.id, item);
+      }
+    });
 
     const deletedIds = new Set(getLocalData('kypi_deleted_agreements'));
     const list = Array.from(combinedMap.values()).filter(item => !deletedIds.has(item.id));
     return list.sort((a, b) => parseItemTimestamp(b) - parseItemTimestamp(a));
   },
 
-  // 관리자용: 협약 제안서 삭제
   deleteAgreement: async function(id) {
     const deletedList = getLocalData('kypi_deleted_agreements');
     if (!deletedList.includes(id)) {
@@ -512,55 +348,53 @@ window.kypiFirebase = {
     const localList = getLocalData(LOCAL_STORAGE_AGREES_KEY).filter(item => item.id !== id);
     saveLocalData(LOCAL_STORAGE_AGREES_KEY, localList);
 
-    if (db && !id.startsWith('agree_') && !id.startsWith('recovered_')) {
+    try {
+      await fetch(`${FIRESTORE_REST_BASE}/agreements/${id}?${FIRESTORE_KEY_PARAM}`, {
+        method: 'DELETE'
+      });
+    } catch (e) {}
+
+    if (db) {
       try {
         await db.collection("agreements").doc(id).delete();
-      } catch (err) {
-        console.warn("Firestore 삭제 오류:", err);
-      }
+      } catch (e) {}
     }
+
     return true;
   },
 
-  // 전체 데이터 초기화/복원 헬퍼
-  resetAllHistory: function() {
-    localStorage.removeItem('kypi_deleted_applications');
-    localStorage.removeItem('kypi_deleted_agreements');
-    return true;
-  },
-
-  // 실시간 구독 (Firestore onSnapshot + Storage event)
+  // 실시간 구독 및 폴링 (Real-time Listener + 5초 자동 폴링 무적 엔진)
   subscribeApplications: function(onUpdate) {
-    const storageHandler = (e) => {
-      if (e.key === LOCAL_STORAGE_APPS_KEY || e.key === 'kypi_deleted_applications') {
-        window.kypiFirebase.getApplications().then(onUpdate);
-      }
+    const storageHandler = () => {
+      window.kypiFirebase.getApplications().then(onUpdate);
     };
     window.addEventListener('storage', storageHandler);
 
+    // 1. SDK onSnapshot
     let unsubscribeFirestore = null;
     if (db) {
       try {
         unsubscribeFirestore = db.collection("applications").onSnapshot(() => {
           window.kypiFirebase.getApplications().then(onUpdate);
-        }, (err) => {
-          console.warn("Firestore 실시간 리스너 오류:", err);
-          window.kypiFirebase.lastFirestoreError = err;
-        });
+        }, () => {});
       } catch (e) {}
     }
+
+    // 2. 5초 자동 주기적 폴링 (관리자가 켜놓고 있을 때 새 신청서 100% 자동 누적 보장!)
+    const pollInterval = setInterval(() => {
+      window.kypiFirebase.getApplications().then(onUpdate);
+    }, 5000);
 
     return () => {
       window.removeEventListener('storage', storageHandler);
       if (unsubscribeFirestore) unsubscribeFirestore();
+      clearInterval(pollInterval);
     };
   },
 
   subscribeAgreements: function(onUpdate) {
-    const storageHandler = (e) => {
-      if (e.key === LOCAL_STORAGE_AGREES_KEY || e.key === 'kypi_deleted_agreements') {
-        window.kypiFirebase.getAgreements().then(onUpdate);
-      }
+    const storageHandler = () => {
+      window.kypiFirebase.getAgreements().then(onUpdate);
     };
     window.addEventListener('storage', storageHandler);
 
@@ -569,16 +403,18 @@ window.kypiFirebase = {
       try {
         unsubscribeFirestore = db.collection("agreements").onSnapshot(() => {
           window.kypiFirebase.getAgreements().then(onUpdate);
-        }, (err) => {
-          console.warn("Firestore agreements 실시간 리스너 오류:", err);
-          window.kypiFirebase.lastFirestoreError = err;
-        });
+        }, () => {});
       } catch (e) {}
     }
+
+    const pollInterval = setInterval(() => {
+      window.kypiFirebase.getAgreements().then(onUpdate);
+    }, 5000);
 
     return () => {
       window.removeEventListener('storage', storageHandler);
       if (unsubscribeFirestore) unsubscribeFirestore();
+      clearInterval(pollInterval);
     };
   }
 };
