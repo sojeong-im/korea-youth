@@ -127,6 +127,65 @@
             box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
         }
 
+        /* 6가지 연구 주제 그리드 및 버튼 */
+        .kypi-topic-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        @media (max-width: 640px) {
+            .kypi-topic-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .kypi-topic-btn {
+            min-height: 54px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            text-align: left;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            outline: none;
+            user-select: none;
+        }
+        .kypi-topic-btn:hover {
+            border-color: #93c5fd;
+            background: #f8fafc;
+        }
+        .kypi-topic-btn.active {
+            background: #eff6ff;
+            border-color: #004b87;
+            color: #004b87;
+            font-weight: 700;
+            box-shadow: 0 0 0 2px rgba(0, 75, 135, 0.15);
+        }
+        .kypi-topic-btn .topic-num {
+            display: inline-block;
+            background: #e2e8f0;
+            color: #475569;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 3px 6px;
+            border-radius: 4px;
+            margin-right: 10px;
+            flex-shrink: 0;
+            font-family: 'Arial', sans-serif;
+        }
+        .kypi-topic-btn.active .topic-num {
+            background: #004b87;
+            color: #ffffff;
+        }
+        .kypi-topic-btn .topic-text {
+            font-size: 13.5px;
+            line-height: 1.35;
+            word-break: keep-all;
+        }
+
         /* Warning banner */
         .kypi-warning-banner {
             background-color: #fffdf2;
@@ -398,6 +457,63 @@
                 margin: 0 2px;
             }
         }
+
+        /* Research Field Checkboxes */
+        .kypi-field-check-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 0;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .kypi-field-check-label input.kypi-check {
+            display: none;
+        }
+
+        .kypi-check-box-wrap {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            width: 100%;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 14px 16px;
+            background: #fff;
+            transition: all 0.18s ease;
+            cursor: pointer;
+        }
+
+        .kypi-field-check-label input.kypi-check:checked + .kypi-check-box-wrap {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .kypi-field-check-label input.kypi-check:checked + .kypi-check-box-wrap .kypi-check-num {
+            background: #2563eb;
+            color: #fff;
+        }
+
+        .kypi-check-box-wrap:hover {
+            border-color: #93c5fd;
+            background: #f8fafc;
+        }
+
+        .kypi-check-num {
+            flex-shrink: 0;
+            width: 30px;
+            height: 30px;
+            background: #f1f5f9;
+            color: #64748b;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 800;
+            transition: all 0.18s ease;
+            margin-top: 1px;
+        }
     </style>
 </head>
 <body>
@@ -540,6 +656,74 @@
                             <button type="button" class="kypi-opt-btn" onclick="selectSingleOption('status', this, '취업준비생')">취업준비생</button>
                             <button type="button" class="kypi-opt-btn" onclick="selectSingleOption('status', this, '직장인')">직장인</button>
                             <button type="button" class="kypi-opt-btn" onclick="selectSingleOption('status', this, '기타')">기타</button>
+                        </div>
+                    </div>
+
+                    <!-- 2. 관심 연구 분야 (복수 선택) -->
+                    <div class="kypi-field-group">
+                        <label class="kypi-field-label">관심 연구 분야 <span style="font-size:12px; color:#6b7280; font-weight:400;">(복수 선택 가능)</span></label>
+                        <div class="kypi-field-desc">분석 받고 싶은 영역을 모두 선택해주세요.</div>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <label class="kypi-field-check-label">
+                                <input type="checkbox" name="researchField" value="커리어 브랜딩 및 주체적 자기표현" class="kypi-check">
+                                <span class="kypi-check-box-wrap">
+                                    <span class="kypi-check-num">01</span>
+                                    <span>
+                                        <strong>커리어 브랜딩 및 주체적 자기표현</strong><br>
+                                        <span style="font-size:12.5px; color:#6b7280;">타인의 시선에서 벗어나 나만의 고유한 역량을 입체적으로 증명합니다.</span>
+                                    </span>
+                                </span>
+                            </label>
+                            <label class="kypi-field-check-label">
+                                <input type="checkbox" name="researchField" value="소통 패턴 및 대인 스피치" class="kypi-check">
+                                <span class="kypi-check-box-wrap">
+                                    <span class="kypi-check-num">02</span>
+                                    <span>
+                                        <strong>소통 패턴 및 대인 스피치</strong><br>
+                                        <span style="font-size:12.5px; color:#6b7280;">무의식적 대화 습관을 분석하여 소통의 주도권과 신뢰감을 회복합니다.</span>
+                                    </span>
+                                </span>
+                            </label>
+                            <label class="kypi-field-check-label">
+                                <input type="checkbox" name="researchField" value="주체적 커리어 서사 및 진로 설계" class="kypi-check">
+                                <span class="kypi-check-box-wrap">
+                                    <span class="kypi-check-num">03</span>
+                                    <span>
+                                        <strong>주체적 커리어 서사 및 진로 설계</strong><br>
+                                        <span style="font-size:12.5px; color:#6b7280;">파편화된 경험 속에서 중심을 잡고 나만의 다중 커리어 로드맵을 세웁니다.</span>
+                                    </span>
+                                </span>
+                            </label>
+                            <label class="kypi-field-check-label">
+                                <input type="checkbox" name="researchField" value="불확실성 대응 자기관리 및 루틴" class="kypi-check">
+                                <span class="kypi-check-box-wrap">
+                                    <span class="kypi-check-num">04</span>
+                                    <span>
+                                        <strong>불확실성 대응 자기관리 및 루틴</strong><br>
+                                        <span style="font-size:12.5px; color:#6b7280;">무너진 일상의 불확실성을 극복하고 나를 지키는 심리적 안전망을 만듭니다.</span>
+                                    </span>
+                                </span>
+                            </label>
+                            <label class="kypi-field-check-label">
+                                <input type="checkbox" name="researchField" value="대인관계 경계선(Boundary) 및 소통" class="kypi-check">
+                                <span class="kypi-check-box-wrap">
+                                    <span class="kypi-check-num">05</span>
+                                    <span>
+                                        <strong>대인관계 경계선(Boundary) 및 소통</strong><br>
+                                        <span style="font-size:12.5px; color:#6b7280;">과도한 의존과 회피를 넘어, 나를 잃지 않는 건강한 심리적 거리감을 세웁니다.</span>
+                                    </span>
+                                </span>
+                            </label>
+                            <label class="kypi-field-check-label">
+                                <input type="checkbox" name="researchField" value="친밀성 애착 패턴 및 연애 스타일" class="kypi-check">
+                                <span class="kypi-check-box-wrap">
+                                    <span class="kypi-check-num">06</span>
+                                    <span>
+                                        <strong>친밀성 애착 패턴 및 연애 스타일</strong><br>
+                                        <span style="font-size:12.5px; color:#6b7280;">반복되는 연애 잔혹사를 끊어내고 존중받는 성숙한 친밀감을 형성합니다.</span>
+                                    </span>
+                                </span>
+                            </label>
                         </div>
                     </div>
 
@@ -760,6 +944,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <!-- Firebase SDK (v10 compat) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+
     <!-- Auth UI Script -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -920,7 +1110,7 @@
         });
 
         // 5. Form Submit & Modal
-        function handleApplicationSubmit(e) {
+        async function handleApplicationSubmit(e) {
             e.preventDefault();
 
             const status = document.getElementById('inputUserStatus').value;
@@ -967,27 +1157,70 @@
                 return;
             }
 
-            const sortedDates = Array.from(selectedDates).sort().map(d => {
+            const rawDates = Array.from(selectedDates).sort();
+            const sortedDates = rawDates.map(d => {
                 const parts = d.split('-');
                 return `${parts[0]}년 ${parseInt(parts[1])}월 ${parseInt(parts[2])}일`;
             }).join(', ');
 
-            // Populate Modal Summary
-            const summaryContainer = document.getElementById('modalSummaryInfo');
-            summaryContainer.innerHTML = `
-                <div><strong>• 신청자:</strong> ${name} (${age}세 / ${gender})</div>
-                <div><strong>• 현재 상태:</strong> ${status}</div>
-                <div><strong>• 약물 복용 여부:</strong> ${med}</div>
-                <div><strong>• 연락처:</strong> ${phone}</div>
-                <div><strong>• 희망 장소:</strong> ${location}</div>
-                <div><strong>• 희망 일자:</strong> ${sortedDates}</div>
-                <div><strong>• 희망 시간대:</strong> ${time}</div>
-                <div style="margin-top:6px; color:#16a34a; font-size:12.5px;">✓ 개인정보 수집 및 이용 동의 완료</div>
-                <div style="color:#16a34a; font-size:12.5px;">✓ 행동 데이터 익명 활용 동의 완료</div>
-            `;
+            const checkedFields = Array.from(document.querySelectorAll('input[name="researchField"]:checked')).map(el => el.value);
+            const topic = checkedFields.length > 0 ? checkedFields.join(', ') : '전체/기본';
 
-            // Open Modal
-            document.getElementById('applySuccessModal').style.display = 'flex';
+            // Button loading state
+            const submitBtn = document.querySelector('#projectApplyForm button[type="submit"]');
+            const originalBtnText = submitBtn ? submitBtn.innerText : '참여 신청서 제출하기';
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerText = '신청서 저장 중...';
+            }
+
+            try {
+                // Firebase Firestore 저장
+                if (window.kypiFirebase && window.kypiFirebase.saveApplication) {
+                    await window.kypiFirebase.saveApplication({
+                        name: name,
+                        age: age ? parseInt(age, 10) : null,
+                        gender: gender,
+                        phone: phone,
+                        status: status,
+                        topic: topic,
+                        fields: checkedFields,
+                        medication: med,
+                        location: location,
+                        preferredDates: rawDates,
+                        preferredTime: time,
+                        privacyAgreed: true,
+                        dataAgreed: true,
+                        source: 'web_joint_research'
+                    });
+                }
+
+                // Populate Modal Summary
+                const summaryContainer = document.getElementById('modalSummaryInfo');
+                summaryContainer.innerHTML = `
+                    <div><strong>• 신청자:</strong> ${name} (${age}세 / ${gender})</div>
+                    <div><strong>• 현재 상태:</strong> ${status}</div>
+                    <div><strong>• 관심 연구 주제:</strong> <span style="color:#004b87; font-weight:bold;">${topic}</span></div>
+                    <div><strong>• 약물 복용 여부:</strong> ${med}</div>
+                    <div><strong>• 연락처:</strong> ${phone}</div>
+                    <div><strong>• 희망 장소:</strong> ${location}</div>
+                    <div><strong>• 희망 일자:</strong> ${sortedDates}</div>
+                    <div><strong>• 희망 시간대:</strong> ${time}</div>
+                    <div style="margin-top:6px; color:#16a34a; font-size:12.5px;">✓ 개인정보 수집 및 이용 동의 완료</div>
+                    <div style="color:#16a34a; font-size:12.5px;">✓ 행동 데이터 익명 활용 동의 완료</div>
+                `;
+
+                // Open Modal
+                document.getElementById('applySuccessModal').style.display = 'flex';
+            } catch (error) {
+                console.error("신청서 제출 오류:", error);
+                alert("신청서 접수 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.\n(" + (error.message || error) + ")");
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = originalBtnText;
+                }
+            }
         }
 
         // 6. Privacy Detail Toggle

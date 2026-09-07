@@ -123,6 +123,65 @@
             box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
         }
 
+        /* 6가지 연구 주제 그리드 및 버튼 */
+        .kypi-topic-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        @media (max-width: 640px) {
+            .kypi-topic-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .kypi-topic-btn {
+            min-height: 54px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            text-align: left;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            outline: none;
+            user-select: none;
+        }
+        .kypi-topic-btn:hover {
+            border-color: #93c5fd;
+            background: #f8fafc;
+        }
+        .kypi-topic-btn.active {
+            background: #eff6ff;
+            border-color: #004b87;
+            color: #004b87;
+            font-weight: 700;
+            box-shadow: 0 0 0 2px rgba(0, 75, 135, 0.15);
+        }
+        .kypi-topic-btn .topic-num {
+            display: inline-block;
+            background: #e2e8f0;
+            color: #475569;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 3px 6px;
+            border-radius: 4px;
+            margin-right: 10px;
+            flex-shrink: 0;
+            font-family: 'Arial', sans-serif;
+        }
+        .kypi-topic-btn.active .topic-num {
+            background: #004b87;
+            color: #ffffff;
+        }
+        .kypi-topic-btn .topic-text {
+            font-size: 13.5px;
+            line-height: 1.35;
+            word-break: keep-all;
+        }
+
         /* Warning banner */
         .kypi-warning-banner {
             background-color: #fffdf2;
@@ -499,7 +558,42 @@
                     </div>
                 </div>
 
-                <!-- 3. 기본 정보 (이름, 나이) -->
+                <!-- 3. 관심 연구 주제 (6가지) -->
+                <div class="kypi-field-group" style="margin-top: 28px;">
+                    <label class="kypi-field-label">
+                        관심 연구 주제 <span class="kypi-required">*</span>
+                    </label>
+                    <div class="kypi-field-desc">집중적인 자기분석 및 행동패턴 솔루션을 희망하는 연구 주제를 선택해주세요.</div>
+                    <input type="hidden" name="researchTopic" id="inputResearchTopic" value="">
+                    <div class="kypi-topic-grid">
+                        <button type="button" class="kypi-topic-btn" onclick="selectTopic(this, '커리어 브랜딩 및 주체적 자기표현')">
+                            <span class="topic-num">01</span>
+                            <span class="topic-text">커리어 브랜딩 및 주체적 자기표현</span>
+                        </button>
+                        <button type="button" class="kypi-topic-btn" onclick="selectTopic(this, '소통 패턴 및 대인 스피치')">
+                            <span class="topic-num">02</span>
+                            <span class="topic-text">소통 패턴 및 대인 스피치</span>
+                        </button>
+                        <button type="button" class="kypi-topic-btn" onclick="selectTopic(this, '주체적 커리어 서사 및 진로 설계')">
+                            <span class="topic-num">03</span>
+                            <span class="topic-text">주체적 커리어 서사 및 진로 설계</span>
+                        </button>
+                        <button type="button" class="kypi-topic-btn" onclick="selectTopic(this, '불확실성 대응 자기관리 및 루틴')">
+                            <span class="topic-num">04</span>
+                            <span class="topic-text">불확실성 대응 자기관리 및 루틴</span>
+                        </button>
+                        <button type="button" class="kypi-topic-btn" onclick="selectTopic(this, '대인관계 경계선(Boundary) 및 소통')">
+                            <span class="topic-num">05</span>
+                            <span class="topic-text">대인관계 경계선(Boundary) 및 소통</span>
+                        </button>
+                        <button type="button" class="kypi-topic-btn" onclick="selectTopic(this, '친밀성 애착 패턴 및 연애 스타일')">
+                            <span class="topic-num">06</span>
+                            <span class="topic-text">친밀성 애착 패턴 및 연애 스타일</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4. 기본 정보 (이름, 나이) -->
                 <div class="kypi-field-group" style="margin-top: 32px;">
                     <div class="kypi-grid-2col">
                         <div>
@@ -671,6 +765,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <!-- Firebase SDK (v10 compat) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+
     <!-- Application Form Logic -->
     <script>
         // 1. Single Option Selector (Status, Gender)
@@ -701,6 +801,15 @@
                 btnYes.classList.add('active-blue');
                 btnNo.classList.remove('active-blue');
             }
+        }
+
+        // 2-1. Research Topic Selector
+        function selectTopic(btn, topicValue) {
+            const grid = btn.parentElement;
+            const buttons = grid.querySelectorAll('.kypi-topic-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('inputResearchTopic').value = topicValue;
         }
 
         // 3. Phone Auto Formatting
@@ -812,11 +921,12 @@
         });
 
         // 5. Form Submit & Modal
-        function handleApplicationSubmit(e) {
+        async function handleApplicationSubmit(e) {
             e.preventDefault();
 
             const status = document.getElementById('inputUserStatus').value;
             const med = document.getElementById('inputMedication').value;
+            const topic = document.getElementById('inputResearchTopic').value;
             const name = document.getElementById('userName').value.trim();
             const age = document.getElementById('userAge').value.trim();
             const gender = document.getElementById('inputGender').value;
@@ -826,6 +936,11 @@
 
             if (!status) {
                 alert('현재 상태를 선택해주세요.');
+                return;
+            }
+
+            if (!topic) {
+                alert('관심 연구 주제를 선택해주세요.');
                 return;
             }
 
@@ -859,27 +974,66 @@
                 return;
             }
 
-            const sortedDates = Array.from(selectedDates).sort().map(d => {
+            const rawDates = Array.from(selectedDates).sort();
+            const sortedDates = rawDates.map(d => {
                 const parts = d.split('-');
                 return `${parts[0]}년 ${parseInt(parts[1])}월 ${parseInt(parts[2])}일`;
             }).join(', ');
 
-            // Populate Modal Summary
-            const summaryContainer = document.getElementById('modalSummaryInfo');
-            summaryContainer.innerHTML = `
-                <div><strong>• 신청자:</strong> ${name} (${age}세 / ${gender})</div>
-                <div><strong>• 현재 상태:</strong> ${status}</div>
-                <div><strong>• 약물 복용 여부:</strong> ${med}</div>
-                <div><strong>• 연락처:</strong> ${phone}</div>
-                <div><strong>• 희망 장소:</strong> ${location}</div>
-                <div><strong>• 희망 일자:</strong> ${sortedDates}</div>
-                <div><strong>• 희망 시간대:</strong> ${time}</div>
-                <div style="margin-top:6px; color:#16a34a; font-size:12.5px;">✓ 개인정보 수집 및 이용 동의 완료</div>
-                <div style="color:#16a34a; font-size:12.5px;">✓ 행동 데이터 익명 활용 동의 완료</div>
-            `;
+            // Button loading state
+            const submitBtn = document.querySelector('#projectApplyForm button[type="submit"]');
+            const originalBtnText = submitBtn ? submitBtn.innerText : '참여 신청서 제출하기';
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerText = '신청서 저장 중...';
+            }
 
-            // Open Modal
-            document.getElementById('applySuccessModal').style.display = 'flex';
+            try {
+                // Firebase Firestore 저장
+                if (window.kypiFirebase && window.kypiFirebase.saveApplication) {
+                    await window.kypiFirebase.saveApplication({
+                        name: name,
+                        age: age ? parseInt(age, 10) : null,
+                        gender: gender,
+                        phone: phone,
+                        status: status,
+                        topic: topic,
+                        medication: med,
+                        location: location,
+                        preferredDates: rawDates,
+                        preferredTime: time,
+                        privacyAgreed: true,
+                        dataAgreed: true,
+                        source: 'web_apply'
+                    });
+                }
+
+                // Populate Modal Summary
+                const summaryContainer = document.getElementById('modalSummaryInfo');
+                summaryContainer.innerHTML = `
+                    <div><strong>• 신청자:</strong> ${name} (${age}세 / ${gender})</div>
+                    <div><strong>• 현재 상태:</strong> ${status}</div>
+                    <div><strong>• 관심 연구 주제:</strong> <span style="color:#004b87; font-weight:bold;">${topic}</span></div>
+                    <div><strong>• 약물 복용 여부:</strong> ${med}</div>
+                    <div><strong>• 연락처:</strong> ${phone}</div>
+                    <div><strong>• 희망 장소:</strong> ${location}</div>
+                    <div><strong>• 희망 일자:</strong> ${sortedDates}</div>
+                    <div><strong>• 희망 시간대:</strong> ${time}</div>
+                    <div style="margin-top:6px; color:#16a34a; font-size:12.5px;">✓ 개인정보 수집 및 이용 동의 완료</div>
+                    <div style="color:#16a34a; font-size:12.5px;">✓ 행동 데이터 익명 활용 동의 완료</div>
+                `;
+
+                // Open Modal
+                document.getElementById('applySuccessModal').style.display = 'flex';
+            } catch (error) {
+                console.error("신청서 제출 오류:", error);
+                alert("신청서 접수 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.\n(" + (error.message || error) + ")");
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = originalBtnText;
+                }
+            }
         }
 
         // Privacy Detail Toggle

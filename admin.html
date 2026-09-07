@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KYPI 연구소 - 관리자 시스템</title>
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <style>
+        body {
+            background-color: #f1f5f9;
+            font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo", "Segoe UI", Roboto, sans-serif;
+            color: #1e293b;
+        }
+
+        /* Top Navbar */
+        .admin-nav {
+            background: #003366;
+            color: #fff;
+            padding: 14px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .admin-nav .brand {
+            font-size: 19px;
+            font-weight: 800;
+            color: #fff;
+            display: inline-block;
+            text-decoration: none;
+            letter-spacing: -0.3px;
+        }
+        .admin-nav .brand span {
+            color: #38bdf8;
+            font-size: 14px;
+            margin-left: 8px;
+            font-weight: 600;
+            background: rgba(255,255,255,0.12);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        /* Password Gate Card */
+        #authGate {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .login-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        /* Dashboard Container */
+        #adminDashboard {
+            display: none;
+            padding: 30px 0 60px 0;
+        }
+
+        /* Stat Cards */
+        .stat-card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 20px 24px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            margin-bottom: 24px;
+            transition: transform 0.2s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+        .stat-label {
+            font-size: 13.5px;
+            color: #64748b;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .stat-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        /* Modern Tabs */
+        .admin-tabs {
+            display: flex;
+            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 24px;
+            gap: 8px;
+        }
+        .admin-tab-btn {
+            padding: 12px 20px;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-size: 15px;
+            font-weight: 700;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: -2px;
+        }
+        .admin-tab-btn.active {
+            color: #004b87;
+            border-bottom-color: #004b87;
+            background: #fff;
+            border-radius: 8px 8px 0 0;
+        }
+
+        /* Content Card */
+        .content-card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+
+        /* Table Design */
+        .table-responsive {
+            margin-top: 16px;
+            border: 1px solid #edf2f7;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .table-custom {
+            margin-bottom: 0;
+            background: #fff;
+        }
+        .table-custom th {
+            background: #f8fafc;
+            color: #475569;
+            font-weight: 700;
+            font-size: 13px;
+            padding: 14px 12px;
+            border-bottom: 2px solid #e2e8f0;
+            white-space: nowrap;
+        }
+        .table-custom td {
+            vertical-align: middle !important;
+            padding: 14px 12px;
+            font-size: 13.5px;
+            color: #334155;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .table-custom tbody tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .badge-status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .btn-action-sm {
+            padding: 4px 10px;
+            font-size: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        /* Detail Modal */
+        .modal-body dt {
+            color: #64748b;
+            font-weight: 600;
+            font-size: 13.5px;
+            margin-bottom: 4px;
+        }
+        .modal-body dd {
+            color: #0f172a;
+            font-size: 14.5px;
+            margin-bottom: 14px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Admin Navbar -->
+    <header class="admin-nav">
+        <div class="container-fluid" style="padding: 0 30px;">
+            <div class="row" style="display: flex; align-items: center; justify-content: space-between;">
+                <div>
+                    <a href="admin.html" class="brand">
+                        KYPI 연구소 <span>관리자 시스템</span>
+                    </a>
+                </div>
+                <div id="navRightControls" style="display: none;">
+                    <a href="index.html" target="_blank" class="btn btn-default btn-sm" style="margin-right: 8px; font-weight: 600;">
+                        🌐 웹사이트 방문
+                    </a>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="handleLogout()" style="font-weight: 600;">
+                        로그아웃
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 1. Password Gate -->
+    <div id="authGate">
+        <div class="login-card">
+            <div style="width: 54px; height: 54px; background: #e0f2fe; color: #004b87; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; margin: 0 auto 18px auto;">
+                🔒
+            </div>
+            <h3 style="font-size: 22px; font-weight: 800; color: #003366; margin-bottom: 8px;">관리자 인증</h3>
+            <p style="font-size: 13.5px; color: #64748b; margin-bottom: 24px;">접속 비밀번호를 입력해주세요.</p>
+
+            <form onsubmit="handlePasswordSubmit(event)">
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <input type="password" id="adminPwdInput" class="form-control" placeholder="비밀번호 입력" style="height: 48px; border-radius: 8px; text-align: center; font-size: 16px; letter-spacing: 2px;" required autofocus>
+                </div>
+                <div id="pwdErrorMsg" style="color: #ef4444; font-size: 13px; font-weight: 600; margin-bottom: 16px; display: none;">
+                    비밀번호가 올바르지 않습니다.
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" style="height: 48px; font-size: 15px; font-weight: bold; background: #004b87; border: none; border-radius: 8px;">
+                    인증 및 입장
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. Main Dashboard -->
+    <div id="adminDashboard" class="container-fluid" style="padding: 30px 30px 60px 30px;">
+        
+        <!-- Summary Stat Cards -->
+        <div class="row">
+            <div class="col-xs-12 col-sm-4">
+                <div class="stat-card">
+                    <div class="stat-label">📋 총 연구 참가 신청</div>
+                    <div class="stat-value" id="statTotalApps">-</div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <div class="stat-card">
+                    <div class="stat-label">📅 오늘 접수된 신청</div>
+                    <div class="stat-value" id="statTodayApps" style="color: #0284c7;">-</div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <div class="stat-card">
+                    <div class="stat-label">🤝 협약 및 제휴 문의</div>
+                    <div class="stat-value" id="statTotalAgrees" style="color: #059669;">-</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="admin-tabs">
+            <button class="admin-tab-btn active" id="tabBtnApps" onclick="switchTab('apps')">
+                📋 연구 참가 신청 내역 (<span id="tabCountApps">0</span>)
+            </button>
+            <button class="admin-tab-btn" id="tabBtnAgrees" onclick="switchTab('agrees')">
+                🤝 협약 및 제휴 문의 (<span id="tabCountAgrees">0</span>)
+            </button>
+        </div>
+
+        <!-- Tab Content: Applications -->
+        <div id="tabContentApps" class="content-card">
+            <div class="row" style="margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                <div class="col-xs-12 col-sm-6">
+                    <input type="text" id="searchAppsInput" onkeyup="filterApplications()" class="form-control" placeholder="🔍 이름, 연락처, 상태, 희망장소 검색..." style="height: 42px; border-radius: 8px;">
+                </div>
+                <div class="col-xs-12 col-sm-6 text-right">
+                    <button type="button" class="btn btn-default" onclick="loadDashboardData()" style="height: 42px; font-weight: 600; border-radius: 8px;">
+                        🔄 새로고침
+                    </button>
+                    <button type="button" class="btn btn-success" onclick="exportApplicationsToCSV()" style="height: 42px; font-weight: 600; border-radius: 8px; margin-left: 6px;">
+                        📥 엑셀(CSV) 다운로드
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-custom table-hover" id="appsTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>접수 일시</th>
+                            <th>신청자</th>
+                            <th>나이/성별</th>
+                            <th>연락처</th>
+                            <th>현재 상태</th>
+                            <th>관심 연구 주제</th>
+                            <th>약물 복용</th>
+                            <th>희망 장소</th>
+                            <th>희망 일자</th>
+                            <th>희망 시간</th>
+                            <th style="text-align: center;">관리</th>
+                        </tr>
+                    </thead>
+                    <tbody id="appsTableBody">
+                        <tr>
+                            <td colspan="12" class="text-center" style="padding: 40px; color: #94a3b8;">
+                                데이터를 불러오는 중입니다...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab Content: Agreements -->
+        <div id="tabContentAgrees" class="content-card" style="display: none;">
+            <div class="row" style="margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                <div class="col-xs-12 col-sm-6">
+                    <input type="text" id="searchAgreesInput" onkeyup="filterAgreements()" class="form-control" placeholder="🔍 기관/기업명, 담당자, 이메일 검색..." style="height: 42px; border-radius: 8px;">
+                </div>
+                <div class="col-xs-12 col-sm-6 text-right">
+                    <button type="button" class="btn btn-default" onclick="loadDashboardData()" style="height: 42px; font-weight: 600; border-radius: 8px;">
+                        🔄 새로고침
+                    </button>
+                    <button type="button" class="btn btn-success" onclick="exportAgreementsToCSV()" style="height: 42px; font-weight: 600; border-radius: 8px; margin-left: 6px;">
+                        📥 엑셀(CSV) 다운로드
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-custom table-hover" id="agreesTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>접수 일시</th>
+                            <th>기관 / 기업명</th>
+                            <th>담당자 성함/직급</th>
+                            <th>이메일 주소</th>
+                            <th>제안 내용 요약</th>
+                            <th style="text-align: center;">관리</th>
+                        </tr>
+                    </thead>
+                    <tbody id="agreesTableBody">
+                        <tr>
+                            <td colspan="7" class="text-center" style="padding: 40px; color: #94a3b8;">
+                                데이터를 불러오는 중입니다...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Application Detail Modal -->
+    <div class="modal fade" id="appDetailModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document" style="max-width: 560px;">
+            <div class="modal-content" style="border-radius: 14px; overflow: hidden; border: none; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                <div class="modal-header" style="background: #003366; color: #fff; padding: 18px 24px;">
+                    <button type="button" class="close" data-dismiss="modal" style="color:#fff; opacity:0.8;">&times;</button>
+                    <h4 class="modal-title" style="font-weight: 700; font-size: 17px;">연구 참가 신청서 상세 정보</h4>
+                </div>
+                <div class="modal-body" id="appDetailBody" style="padding: 24px;">
+                    <!-- Injected by script -->
+                </div>
+                <div class="modal-footer" style="background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 14px 24px;">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="font-weight: 600;">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Agreement Detail Modal -->
+    <div class="modal fade" id="agreeDetailModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document" style="max-width: 560px;">
+            <div class="modal-content" style="border-radius: 14px; overflow: hidden; border: none; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                <div class="modal-header" style="background: #004b87; color: #fff; padding: 18px 24px;">
+                    <button type="button" class="close" data-dismiss="modal" style="color:#fff; opacity:0.8;">&times;</button>
+                    <h4 class="modal-title" style="font-weight: 700; font-size: 17px;">협약 제안서 상세 정보</h4>
+                </div>
+                <div class="modal-body" id="agreeDetailBody" style="padding: 24px;">
+                    <!-- Injected by script -->
+                </div>
+                <div class="modal-footer" style="background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 14px 24px;">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="font-weight: 600;">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Firebase SDK (v10 compat) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+
+    <script>
+        const ADMIN_PASSWORD = "00347";
+        let rawApplications = [];
+        let rawAgreements = [];
+
+        // Auth Logic
+        function checkAuth() {
+            if (sessionStorage.getItem('kypi_admin_auth') === ADMIN_PASSWORD) {
+                document.getElementById('authGate').style.display = 'none';
+                document.getElementById('adminDashboard').style.display = 'block';
+                document.getElementById('navRightControls').style.display = 'block';
+                loadDashboardData();
+            } else {
+                document.getElementById('authGate').style.display = 'flex';
+                document.getElementById('adminDashboard').style.display = 'none';
+                document.getElementById('navRightControls').style.display = 'none';
+            }
+        }
+
+        function handlePasswordSubmit(e) {
+            e.preventDefault();
+            const inputVal = document.getElementById('adminPwdInput').value.trim();
+            const errorMsg = document.getElementById('pwdErrorMsg');
+
+            if (inputVal === ADMIN_PASSWORD) {
+                errorMsg.style.display = 'none';
+                sessionStorage.setItem('kypi_admin_auth', ADMIN_PASSWORD);
+                checkAuth();
+            } else {
+                errorMsg.style.display = 'block';
+                document.getElementById('adminPwdInput').value = '';
+                document.getElementById('adminPwdInput').focus();
+            }
+        }
+
+        function handleLogout() {
+            if (confirm("관리자 모드에서 로그아웃하시겠습니까?")) {
+                sessionStorage.removeItem('kypi_admin_auth');
+                window.location.reload();
+            }
+        }
+
+        // Tab Switching
+        function switchTab(tab) {
+            const btnApps = document.getElementById('tabBtnApps');
+            const btnAgrees = document.getElementById('tabBtnAgrees');
+            const contentApps = document.getElementById('tabContentApps');
+            const contentAgrees = document.getElementById('tabContentAgrees');
+
+            if (tab === 'apps') {
+                btnApps.classList.add('active');
+                btnAgrees.classList.remove('active');
+                contentApps.style.display = 'block';
+                contentAgrees.style.display = 'none';
+            } else {
+                btnAgrees.classList.add('active');
+                btnApps.classList.remove('active');
+                contentAgrees.style.display = 'block';
+                contentApps.style.display = 'none';
+            }
+        }
+
+        // Date Formatter Helper
+        function formatTimestamp(ts) {
+            if (!ts) return '-';
+            let date;
+            if (ts.toDate && typeof ts.toDate === 'function') {
+                date = ts.toDate();
+            } else if (ts.seconds) {
+                date = new Date(ts.seconds * 1000);
+            } else {
+                date = new Date(ts);
+            }
+            if (isNaN(date.getTime())) return '-';
+
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            const d = String(date.getDate()).padStart(2, '0');
+            const hh = String(date.getHours()).padStart(2, '0');
+            const mm = String(date.getMinutes()).padStart(2, '0');
+            return `${y}-${m}-${d} ${hh}:${mm}`;
+        }
+
+        function isToday(ts) {
+            if (!ts) return false;
+            let date = ts.toDate ? ts.toDate() : (ts.seconds ? new Date(ts.seconds * 1000) : new Date(ts));
+            const now = new Date();
+            return date.getFullYear() === now.getFullYear() &&
+                   date.getMonth() === now.getMonth() &&
+                   date.getDate() === now.getDate();
+        }
+
+        // Data Loader
+        async function loadDashboardData() {
+            if (!window.kypiFirebase) return;
+
+            // Load Applications
+            try {
+                rawApplications = await window.kypiFirebase.getApplications();
+                renderApplications(rawApplications);
+            } catch (err) {
+                console.error("신청서 불러오기 오류:", err);
+                document.getElementById('appsTableBody').innerHTML = `
+                    <tr>
+                        <td colspan="11" class="text-center" style="padding: 30px; color: #ef4444;">
+                            데이터를 불러오지 못했습니다. Firestore 보안 규칙(Rules)에서 읽기 권한을 확인해주세요.<br>
+                            <small style="color: #64748b;">오류 내용: ${err.message || err}</small>
+                        </td>
+                    </tr>
+                `;
+            }
+
+            // Load Agreements
+            try {
+                rawAgreements = await window.kypiFirebase.getAgreements();
+                renderAgreements(rawAgreements);
+            } catch (err) {
+                console.error("협약 제안서 불러오기 오류:", err);
+                document.getElementById('agreesTableBody').innerHTML = `
+                    <tr>
+                        <td colspan="7" class="text-center" style="padding: 30px; color: #ef4444;">
+                            데이터를 불러오지 못했습니다. Firestore 보안 규칙(Rules)에서 읽기 권한을 확인해주세요.<br>
+                            <small style="color: #64748b;">오류 내용: ${err.message || err}</small>
+                        </td>
+                    </tr>
+                `;
+            }
+
+            // Update Stats
+            document.getElementById('statTotalApps').innerText = `${rawApplications.length}건`;
+            const todayCount = rawApplications.filter(a => isToday(a.createdAt)).length;
+            document.getElementById('statTodayApps').innerText = `${todayCount}건`;
+            document.getElementById('statTotalAgrees').innerText = `${rawAgreements.length}건`;
+            document.getElementById('tabCountApps').innerText = rawApplications.length;
+            document.getElementById('tabCountAgrees').innerText = rawAgreements.length;
+        }
+
+        // Render Applications Table
+        function renderApplications(list) {
+            const tbody = document.getElementById('appsTableBody');
+            if (list.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="12" class="text-center" style="padding: 40px; color: #94a3b8;">접수된 참가 신청서가 없습니다.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = list.map((item, index) => {
+                const datesStr = (item.preferredDates && item.preferredDates.length) 
+                    ? item.preferredDates.join('<br>') 
+                    : (item.preferredDates || '-');
+
+                return `
+                    <tr>
+                        <td style="color:#94a3b8; font-weight:600;">${index + 1}</td>
+                        <td style="white-space:nowrap; font-size:12.5px; color:#64748b;">${formatTimestamp(item.createdAt)}</td>
+                        <td><strong>${escapeHtml(item.name || '-')}</strong></td>
+                        <td>${item.age ? item.age + '세' : '-'} / ${escapeHtml(item.gender || '-')}</td>
+                        <td><a href="tel:${escapeHtml(item.phone || '')}" style="color:#004b87; font-weight:600;">${escapeHtml(item.phone || '-')}</a></td>
+                        <td><span class="badge-status">${escapeHtml(item.status || '-')}</span></td>
+                        <td style="color:#004b87; font-weight:600; font-size:12.5px; white-space:nowrap;">${escapeHtml(item.topic || '-')}</td>
+                        <td>${escapeHtml(item.medication || '-')}</td>
+                        <td>${escapeHtml(item.location || '-')}</td>
+                        <td style="font-size:12.5px; line-height:1.4;">${datesStr}</td>
+                        <td style="font-size:12.5px;">${escapeHtml(item.preferredTime || '-')}</td>
+                        <td style="text-align: center; white-space: nowrap;">
+                            <button class="btn btn-default btn-action-sm" onclick="showAppDetail('${item.id}')">상세</button>
+                            <button class="btn btn-danger btn-action-sm" onclick="deleteAppItem('${item.id}')">삭제</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Render Agreements Table
+        function renderAgreements(list) {
+            const tbody = document.getElementById('agreesTableBody');
+            if (list.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="text-center" style="padding: 40px; color: #94a3b8;">접수된 협약 제안이 없습니다.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = list.map((item, index) => {
+                const msgSummary = item.message ? (item.message.length > 35 ? escapeHtml(item.message.substring(0, 35)) + '...' : escapeHtml(item.message)) : '-';
+
+                return `
+                    <tr>
+                        <td style="color:#94a3b8; font-weight:600;">${index + 1}</td>
+                        <td style="white-space:nowrap; font-size:12.5px; color:#64748b;">${formatTimestamp(item.createdAt)}</td>
+                        <td><strong>${escapeHtml(item.company || '-')}</strong></td>
+                        <td>${escapeHtml(item.name || '-')}</td>
+                        <td><a href="mailto:${escapeHtml(item.email || '')}" style="color:#004b87;">${escapeHtml(item.email || '-')}</a></td>
+                        <td style="color:#475569;">${msgSummary}</td>
+                        <td style="text-align: center; white-space: nowrap;">
+                            <button class="btn btn-default btn-action-sm" onclick="showAgreeDetail('${item.id}')">상세</button>
+                            <button class="btn btn-danger btn-action-sm" onclick="deleteAgreeItem('${item.id}')">삭제</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Filtering
+        function filterApplications() {
+            const query = document.getElementById('searchAppsInput').value.toLowerCase();
+            const filtered = rawApplications.filter(item => {
+                const name = (item.name || '').toLowerCase();
+                const phone = (item.phone || '').toLowerCase();
+                const status = (item.status || '').toLowerCase();
+                const topic = (item.topic || '').toLowerCase();
+                const location = (item.location || '').toLowerCase();
+                return name.includes(query) || phone.includes(query) || status.includes(query) || topic.includes(query) || location.includes(query);
+            });
+            renderApplications(filtered);
+        }
+
+        function filterAgreements() {
+            const query = document.getElementById('searchAgreesInput').value.toLowerCase();
+            const filtered = rawAgreements.filter(item => {
+                const company = (item.company || '').toLowerCase();
+                const name = (item.name || '').toLowerCase();
+                const email = (item.email || '').toLowerCase();
+                const msg = (item.message || '').toLowerCase();
+                return company.includes(query) || name.includes(query) || email.includes(query) || msg.includes(query);
+            });
+            renderAgreements(filtered);
+        }
+
+        // Modals
+        function showAppDetail(id) {
+            const item = rawApplications.find(a => a.id === id);
+            if (!item) return;
+
+            const datesStr = (item.preferredDates && item.preferredDates.length) 
+                ? item.preferredDates.join(', ') 
+                : (item.preferredDates || '-');
+
+            const html = `
+                <dl class="dl-horizontal" style="margin-bottom:0;">
+                    <dt>접수 문서 ID</dt>
+                    <dd style="font-family:monospace; font-size:12px; color:#64748b;">${item.id}</dd>
+                    <dt>접수 일시</dt>
+                    <dd>${formatTimestamp(item.createdAt)}</dd>
+                    <dt>신청자 성명</dt>
+                    <dd><strong style="font-size:16px; color:#003366;">${escapeHtml(item.name || '-')}</strong> (${item.age || '-'}세 / ${escapeHtml(item.gender || '-')})</dd>
+                    <dt>연락처</dt>
+                    <dd><a href="tel:${escapeHtml(item.phone || '')}" style="color:#0284c7; font-weight:700;">${escapeHtml(item.phone || '-')}</a></dd>
+                    <dt>현재 상태</dt>
+                    <dd><span class="badge-status">${escapeHtml(item.status || '-')}</span></dd>
+                    <dt>관심 연구 주제</dt>
+                    <dd><strong style="color:#004b87; font-size:15px;">${escapeHtml(item.topic || '-')}</strong></dd>
+                    <dt>약물 복용 여부</dt>
+                    <dd>${escapeHtml(item.medication || '-')}</dd>
+                    <dt>희망 장소</dt>
+                    <dd><strong>${escapeHtml(item.location || '-')}</strong></dd>
+                    <dt>희망 일자</dt>
+                    <dd>${datesStr}</dd>
+                    <dt>희망 시간대</dt>
+                    <dd>${escapeHtml(item.preferredTime || '-')}</dd>
+                    <dt>유입 경로</dt>
+                    <dd style="color:#64748b; font-size:12px;">${escapeHtml(item.source || 'web')}</dd>
+                </dl>
+            `;
+            document.getElementById('appDetailBody').innerHTML = html;
+            $('#appDetailModal').modal('show');
+        }
+
+        function showAgreeDetail(id) {
+            const item = rawAgreements.find(a => a.id === id);
+            if (!item) return;
+
+            const html = `
+                <dl class="dl-horizontal" style="margin-bottom:0;">
+                    <dt>접수 일시</dt>
+                    <dd>${formatTimestamp(item.createdAt)}</dd>
+                    <dt>기관 / 기업명</dt>
+                    <dd><strong style="font-size:16px; color:#003366;">${escapeHtml(item.company || '-')}</strong></dd>
+                    <dt>담당자 성함/직급</dt>
+                    <dd>${escapeHtml(item.name || '-')}</dd>
+                    <dt>회신 이메일</dt>
+                    <dd><a href="mailto:${escapeHtml(item.email || '')}" style="color:#0284c7; font-weight:700;">${escapeHtml(item.email || '-')}</a></dd>
+                    <dt>제안 내용</dt>
+                    <dd style="background:#f8fafc; padding:12px; border-radius:8px; border:1px solid #e2e8f0; white-space:pre-wrap; line-height:1.6; margin-top:8px;">${escapeHtml(item.message || '-')}</dd>
+                </dl>
+            `;
+            document.getElementById('agreeDetailBody').innerHTML = html;
+            $('#agreeDetailModal').modal('show');
+        }
+
+        // Delete Handlers
+        async function deleteAppItem(id) {
+            if (confirm("해당 참가 신청 내역을 정말로 삭제하시겠습니까?\n삭제된 데이터는 복구할 수 없습니다.")) {
+                try {
+                    await window.kypiFirebase.deleteApplication(id);
+                    alert("삭제되었습니다.");
+                    loadDashboardData();
+                } catch (e) {
+                    alert("삭제 중 오류가 발생했습니다: " + (e.message || e));
+                }
+            }
+        }
+
+        async function deleteAgreeItem(id) {
+            if (confirm("해당 협약 제안 내역을 정말로 삭제하시겠습니까?\n삭제된 데이터는 복구할 수 없습니다.")) {
+                try {
+                    await window.kypiFirebase.deleteAgreement(id);
+                    alert("삭제되었습니다.");
+                    loadDashboardData();
+                } catch (e) {
+                    alert("삭제 중 오류가 발생했습니다: " + (e.message || e));
+                }
+            }
+        }
+
+        // CSV Exporter (UTF-8 BOM to prevent Excel Korean character break)
+        function exportApplicationsToCSV() {
+            if (rawApplications.length === 0) {
+                alert("내보낼 신청서 데이터가 없습니다.");
+                return;
+            }
+
+            const headers = ["접수일시", "신청자명", "나이", "성별", "연락처", "현재상태", "관심연구주제", "약물복용", "희망장소", "희망일정", "희망시간대", "개인정보동의", "데이터활용동의"];
+            const rows = rawApplications.map(item => {
+                const datesStr = (item.preferredDates && item.preferredDates.length) ? item.preferredDates.join('; ') : (item.preferredDates || '');
+                return [
+                    `"${formatTimestamp(item.createdAt)}"`,
+                    `"${(item.name || '').replace(/"/g, '""')}"`,
+                    `"${item.age || ''}"`,
+                    `"${item.gender || ''}"`,
+                    `"${item.phone || ''}"`,
+                    `"${(item.status || '').replace(/"/g, '""')}"`,
+                    `"${(item.topic || '').replace(/"/g, '""')}"`,
+                    `"${(item.medication || '').replace(/"/g, '""')}"`,
+                    `"${(item.location || '').replace(/"/g, '""')}"`,
+                    `"${datesStr.replace(/"/g, '""')}"`,
+                    `"${(item.preferredTime || '').replace(/"/g, '""')}"`,
+                    `"${item.privacyAgreed ? '동의' : '미동의'}"`,
+                    `"${item.dataAgreed ? '동의' : '미동의'}"`
+                ];
+            });
+
+            const csvContent = "\uFEFF" + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `KYPI_참가신청서_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function exportAgreementsToCSV() {
+            if (rawAgreements.length === 0) {
+                alert("내보낼 협약 데이터가 없습니다.");
+                return;
+            }
+
+            const headers = ["접수일시", "기관/기업명", "담당자성명/직급", "회신이메일", "제안내용"];
+            const rows = rawAgreements.map(item => {
+                return [
+                    `"${formatTimestamp(item.createdAt)}"`,
+                    `"${(item.company || '').replace(/"/g, '""')}"`,
+                    `"${(item.name || '').replace(/"/g, '""')}"`,
+                    `"${(item.email || '').replace(/"/g, '""')}"`,
+                    `"${(item.message || '').replace(/"/g, '""')}"`
+                ];
+            });
+
+            const csvContent = "\uFEFF" + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `KYPI_협약제안_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        // Initialize on page load
+        document.addEventListener("DOMContentLoaded", function() {
+            checkAuth();
+        });
+    </script>
+</body>
+</html>
