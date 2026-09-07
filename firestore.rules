@@ -1,0 +1,14 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 참가 신청서 컬렉션: 누구나 신청서 작성 및 관리자 조회 가능
+    match /applications/{docId} {
+      allow read, write: if true;
+    }
+    
+    // 협약 제안서 컬렉션: 누구나 제안서 작성 및 관리자 조회 가능
+    match /agreements/{docId} {
+      allow read, write: if true;
+    }
+  }
+}

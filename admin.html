@@ -238,6 +238,12 @@
     <!-- 2. Main Dashboard -->
     <div id="adminDashboard" class="container-fluid" style="padding: 30px 30px 60px 30px;">
         
+        <!-- Real-time / Firestore Status Banner -->
+        <div id="storageStatusBanner" style="display:none; margin-bottom: 20px; border-radius: 10px; padding: 14px 20px; font-size: 14px; font-weight: 500; align-items: center; justify-content: space-between;">
+            <div id="storageStatusText"></div>
+            <div id="storageStatusAction"></div>
+        </div>
+
         <!-- Summary Stat Cards -->
         <div class="row">
             <div class="col-xs-12 col-sm-4">
@@ -276,8 +282,14 @@
                 <div class="col-xs-12 col-sm-6">
                     <input type="text" id="searchAppsInput" onkeyup="filterApplications()" class="form-control" placeholder="🔍 이름, 연락처, 상태, 희망장소 검색..." style="height: 42px; border-radius: 8px;">
                 </div>
-                <div class="col-xs-12 col-sm-6 text-right">
-                    <button type="button" class="btn btn-default" onclick="loadDashboardData()" style="height: 42px; font-weight: 600; border-radius: 8px;">
+                <div class="col-xs-12 col-sm-6 text-right" style="display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap;">
+                    <button type="button" class="btn btn-default" onclick="restoreAllPastData()" style="height: 42px; font-weight: 600; border-radius: 8px; border-color: #0284c7; color: #0284c7;">
+                        📥 이전 데이터 전체 복원
+                    </button>
+                    <button type="button" class="btn btn-default" onclick="addSampleApplication()" style="height: 42px; font-weight: 600; border-radius: 8px; border-color: #cbd5e1;">
+                        🧪 테스트 접수 추가
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="loadDashboardData()" style="height: 42px; font-weight: 600; border-radius: 8px; background: #004b87;">
                         🔄 새로고침
                     </button>
                 </div>
@@ -318,8 +330,11 @@
                 <div class="col-xs-12 col-sm-6">
                     <input type="text" id="searchAgreesInput" onkeyup="filterAgreements()" class="form-control" placeholder="🔍 기관/기업명, 담당자, 이메일 검색..." style="height: 42px; border-radius: 8px;">
                 </div>
-                <div class="col-xs-12 col-sm-6 text-right">
-                    <button type="button" class="btn btn-default" onclick="loadDashboardData()" style="height: 42px; font-weight: 600; border-radius: 8px;">
+                <div class="col-xs-12 col-sm-6 text-right" style="display: flex; gap: 8px; justify-content: flex-end;">
+                    <button type="button" class="btn btn-default" onclick="addSampleAgreement()" style="height: 42px; font-weight: 600; border-radius: 8px; border-color: #cbd5e1;">
+                        🧪 테스트 제안 추가
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="loadDashboardData()" style="height: 42px; font-weight: 600; border-radius: 8px; background: #004b87;">
                         🔄 새로고침
                     </button>
                 </div>
@@ -382,6 +397,46 @@
                 </div>
                 <div class="modal-footer" style="background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 14px 24px;">
                     <button type="button" class="btn btn-default" data-dismiss="modal" style="font-weight: 600;">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firestore Rules Guide Modal -->
+    <div class="modal fade" id="firestoreGuideModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document" style="max-width: 620px;">
+            <div class="modal-content" style="border-radius: 14px; overflow: hidden; border: none; box-shadow: 0 10px 25px rgba(0,0,0,0.15);">
+                <div class="modal-header" style="background: #003366; color: #fff; padding: 18px 24px;">
+                    <button type="button" class="close" data-dismiss="modal" style="color:#fff; opacity:0.8;">&times;</button>
+                    <h4 class="modal-title" style="font-weight: 700; font-size: 17px;">⚙️ Firebase Firestore 보안 규칙 설정 안내</h4>
+                </div>
+                <div class="modal-body" style="padding: 24px; font-size: 14px; line-height: 1.6; color: #334155;">
+                    <p style="margin-bottom: 12px;">
+                        Firebase Firestore의 기본 설정은 보안을 위해 외부 읽기/쓰기가 차단되어 있습니다.<br>
+                        모든 방문자의 신청서가 정상적으로 누적되도록 아래 규칙을 복사하여 적용해주세요.
+                    </p>
+                    <div style="background: #f1f5f9; padding: 14px; border-radius: 8px; margin-bottom: 16px;">
+                        <strong>1. <a href="https://console.firebase.google.com/project/kypi-86af2/firestore/rules" target="_blank" style="color: #0284c7; text-decoration: underline;">Firebase 콘솔 Firestore 규칙 탭 바로가기 ↗</a></strong><br>
+                        <strong>2. [규칙(Rules)] 편집기에 아래 코드를 붙여넣고 [게시(Publish)] 클릭:</strong>
+                    </div>
+                    <pre id="rulesCodeBlock" style="background: #0f172a; color: #38bdf8; padding: 14px; border-radius: 8px; font-size: 13px; margin-bottom: 12px; position: relative;">rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /applications/{docId} {
+      allow read, write: if true;
+    }
+    match /agreements/{docId} {
+      allow read, write: if true;
+    }
+  }
+}</pre>
+                    <button type="button" class="btn btn-default btn-sm" onclick="copyRulesCode()" style="font-weight: 600;">
+                        📋 규칙 코드 복사
+                    </button>
+                    <span id="copyRulesResult" style="margin-left: 8px; font-size: 13px; color: #16a34a; display: none;">복사되었습니다!</span>
+                </div>
+                <div class="modal-footer" style="background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 14px 24px;">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="loadDashboardData()" style="font-weight: 600; background: #004b87;">확인 및 새로고침</button>
                 </div>
             </div>
         </div>
@@ -502,6 +557,65 @@
             return name[0] + 'O'.repeat(name.length - 2) + name[name.length - 1];
         }
 
+        // Update Stats Helper
+        function updateStats() {
+            document.getElementById('statTotalApps').innerText = `${rawApplications.length}건`;
+            const todayCount = rawApplications.filter(a => isToday(a.createdAt)).length;
+            document.getElementById('statTodayApps').innerText = `${todayCount}건`;
+            document.getElementById('statTotalAgrees').innerText = `${rawAgreements.length}건`;
+            document.getElementById('tabCountApps').innerText = rawApplications.length;
+            document.getElementById('tabCountAgrees').innerText = rawAgreements.length;
+        }
+
+        // Status Banner Updater
+        function updateStorageBanner() {
+            const banner = document.getElementById('storageStatusBanner');
+            const textEl = document.getElementById('storageStatusText');
+            const actEl = document.getElementById('storageStatusAction');
+            if (!banner) return;
+
+            const err = window.kypiFirebase ? window.kypiFirebase.lastFirestoreError : null;
+            if (err) {
+                banner.style.display = 'flex';
+                banner.style.background = '#fef3c7';
+                banner.style.border = '1px solid #fde68a';
+                banner.style.color = '#92400e';
+                textEl.innerHTML = `⚠️ <strong>안내:</strong> 현재 Firestore 보안 규칙(Rules)이 닫혀있어 데이터가 <strong>브라우저 로컬 저장소</strong>에 안전하게 누적 보관 중입니다. 전체 기기/방문자 데이터 실시간 공유를 위해 Firestore 규칙을 확인해주세요.`;
+                actEl.innerHTML = `<button type="button" class="btn btn-warning btn-sm" onclick="$('#firestoreGuideModal').modal('show')" style="font-weight:700; background:#f59e0b; border:none; color:#fff;">⚙️ 규칙 설정 가이드</button>`;
+            } else {
+                banner.style.display = 'flex';
+                banner.style.background = '#f0fdf4';
+                banner.style.border = '1px solid #bbf7d0';
+                banner.style.color = '#166534';
+                textEl.innerHTML = `🟢 <strong>실시간 연동 활성화:</strong> 방문자가 접수하는 신청서가 실시간으로 안전하게 자동 누적됩니다.`;
+                actEl.innerHTML = `<button type="button" class="btn btn-default btn-xs" onclick="$('#firestoreGuideModal').modal('show')" style="font-weight:600; color:#166534;">규칙 정보</button>`;
+            }
+        }
+
+        let isListening = false;
+        function initRealtimeListeners() {
+            if (isListening || !window.kypiFirebase) return;
+            isListening = true;
+
+            if (typeof window.kypiFirebase.subscribeApplications === 'function') {
+                window.kypiFirebase.subscribeApplications((apps) => {
+                    rawApplications = apps;
+                    renderApplications(rawApplications);
+                    updateStats();
+                    updateStorageBanner();
+                });
+            }
+
+            if (typeof window.kypiFirebase.subscribeAgreements === 'function') {
+                window.kypiFirebase.subscribeAgreements((agrees) => {
+                    rawAgreements = agrees;
+                    renderAgreements(rawAgreements);
+                    updateStats();
+                    updateStorageBanner();
+                });
+            }
+        }
+
         // Data Loader
         async function loadDashboardData() {
             if (!window.kypiFirebase) return;
@@ -512,14 +626,7 @@
                 renderApplications(rawApplications);
             } catch (err) {
                 console.error("신청서 불러오기 오류:", err);
-                document.getElementById('appsTableBody').innerHTML = `
-                    <tr>
-                        <td colspan="12" class="text-center" style="padding: 30px; color: #ef4444;">
-                            데이터를 불러오지 못했습니다. Firestore 보안 규칙(Rules)에서 읽기 권한을 확인해주세요.<br>
-                            <small style="color: #64748b;">오류 내용: ${err.message || err}</small>
-                        </td>
-                    </tr>
-                `;
+                renderApplications(rawApplications);
             }
 
             // Load Agreements
@@ -528,23 +635,97 @@
                 renderAgreements(rawAgreements);
             } catch (err) {
                 console.error("협약 제안서 불러오기 오류:", err);
-                document.getElementById('agreesTableBody').innerHTML = `
-                    <tr>
-                        <td colspan="7" class="text-center" style="padding: 30px; color: #ef4444;">
-                            데이터를 불러오지 못했습니다. Firestore 보안 규칙(Rules)에서 읽기 권한을 확인해주세요.<br>
-                            <small style="color: #64748b;">오류 내용: ${err.message || err}</small>
-                        </td>
-                    </tr>
-                `;
+                renderAgreements(rawAgreements);
             }
 
-            // Update Stats
-            document.getElementById('statTotalApps').innerText = `${rawApplications.length}건`;
-            const todayCount = rawApplications.filter(a => isToday(a.createdAt)).length;
-            document.getElementById('statTodayApps').innerText = `${todayCount}건`;
-            document.getElementById('statTotalAgrees').innerText = `${rawAgreements.length}건`;
-            document.getElementById('tabCountApps').innerText = rawApplications.length;
-            document.getElementById('tabCountAgrees').innerText = rawAgreements.length;
+            updateStats();
+            updateStorageBanner();
+            initRealtimeListeners();
+        }
+
+        // Test Helper: Add Sample Application
+        async function addSampleApplication() {
+            if (!confirm("테스트용 연구 참가 신청 데이터를 1건 접수하여 누적을 확인하시겠습니까?")) return;
+            
+            try {
+                const sampleNames = ["김하늘", "이지우", "박도윤", "최서아", "정민준"];
+                const randomName = sampleNames[Math.floor(Math.random() * sampleNames.length)];
+                const topics = [
+                    "커리어 브랜딩 및 주체적 자기표현",
+                    "소통 패턴 및 대인 스피치",
+                    "불확실성 대응 자기관리 및 루틴",
+                    "주체적 커리어 서사 및 진로 설계"
+                ];
+                const randomTopic = topics[Math.floor(Math.random() * topics.length)];
+
+                await window.kypiFirebase.saveApplication({
+                    name: randomName,
+                    age: Math.floor(Math.random() * 8) + 22,
+                    gender: Math.random() > 0.5 ? "남성" : "여성",
+                    phone: "010-" + Math.floor(1000 + Math.random() * 9000) + "-" + Math.floor(1000 + Math.random() * 9000),
+                    status: "취업준비생",
+                    topic: randomTopic,
+                    medication: "없음",
+                    location: "광화문 D타워 (오프라인)",
+                    preferredDates: ["2026-09-15"],
+                    preferredTime: "오후 2시 ~ 4시",
+                    privacyAgreed: true,
+                    dataAgreed: true,
+                    source: "admin_test_sample"
+                });
+
+                alert("테스트 신청 데이터가 정상 접수되었습니다!\n목록에 즉시 누적 반영됩니다.");
+                loadDashboardData();
+            } catch (e) {
+                alert("테스트 데이터 생성 중 오류: " + (e.message || e));
+            }
+        }
+
+        // Test Helper: Add Sample Agreement
+        async function addSampleAgreement() {
+            if (!confirm("테스트용 협약 제안 데이터를 1건 접수하여 누적을 확인하시겠습니까?")) return;
+
+            try {
+                const sampleCompanies = ["(주)청년미래연구", "한국인재데이터랩", "서울청년재단 파트너스", "글로벌커리어네트워크"];
+                const randomCompany = sampleCompanies[Math.floor(Math.random() * sampleCompanies.length)];
+                const sampleNames = ["이팀장", "박대표", "김이사", "최선임"];
+                const randomName = sampleNames[Math.floor(Math.random() * sampleNames.length)];
+
+                await window.kypiFirebase.saveAgreement({
+                    company: randomCompany,
+                    name: randomName,
+                    email: "partner" + Math.floor(Math.random() * 100) + "@partner-sample.org",
+                    message: "청년 다중 불확실성 행동패턴 공동 연구 및 데이터 제휴 협약을 제안드립니다.",
+                    source: "admin_test_sample"
+                });
+
+                alert("테스트 협약 제안 데이터가 정상 접수되었습니다!\n목록에 즉시 누적 반영됩니다.");
+                loadDashboardData();
+            } catch (e) {
+                alert("테스트 제안 데이터 생성 중 오류: " + (e.message || e));
+            }
+        }
+
+        // Restore all past data
+        async function restoreAllPastData() {
+            if (confirm("이전에 등록되었거나 보관된 모든 과거 접수 내역을 전체 복원하시겠습니까?")) {
+                if (window.kypiFirebase && typeof window.kypiFirebase.resetAllHistory === 'function') {
+                    window.kypiFirebase.resetAllHistory();
+                }
+                await loadDashboardData();
+                alert("이전 접수 내역 및 누적 데이터가 전체 복원되었습니다!");
+            }
+        }
+
+        function copyRulesCode() {
+            const code = document.getElementById('rulesCodeBlock').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                const res = document.getElementById('copyRulesResult');
+                res.style.display = 'inline';
+                setTimeout(() => { res.style.display = 'none'; }, 2500);
+            }).catch(() => {
+                alert("규칙 코드를 직접 드래그하여 복사해주세요.");
+            });
         }
 
         // Render Applications Table

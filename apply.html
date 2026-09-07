@@ -989,23 +989,40 @@
             }
 
             try {
-                // Firebase Firestore 저장
+                // 참가 신청서 저장 (Firestore + LocalStorage 듀얼 영구 저장)
+                const applicationData = {
+                    name: name,
+                    age: age ? parseInt(age, 10) : null,
+                    gender: gender,
+                    phone: phone,
+                    status: status,
+                    topic: topic,
+                    medication: med,
+                    location: location,
+                    preferredDates: rawDates,
+                    preferredTime: time,
+                    privacyAgreed: true,
+                    dataAgreed: true,
+                    source: 'web_apply'
+                };
+
                 if (window.kypiFirebase && window.kypiFirebase.saveApplication) {
-                    await window.kypiFirebase.saveApplication({
-                        name: name,
-                        age: age ? parseInt(age, 10) : null,
-                        gender: gender,
-                        phone: phone,
-                        status: status,
-                        topic: topic,
-                        medication: med,
-                        location: location,
-                        preferredDates: rawDates,
-                        preferredTime: time,
-                        privacyAgreed: true,
-                        dataAgreed: true,
-                        source: 'web_apply'
-                    });
+                    await window.kypiFirebase.saveApplication(applicationData);
+                } else {
+                    // 비상 로컬스토리지 직접 저장
+                    try {
+                        const localRaw = localStorage.getItem('kypi_stored_applications');
+                        const localList = localRaw ? JSON.parse(localRaw) : [];
+                        localList.unshift({
+                            id: 'app_' + Date.now(),
+                            ...applicationData,
+                            createdAt: new Date().toISOString(),
+                            _storage: 'local'
+                        });
+                        localStorage.setItem('kypi_stored_applications', JSON.stringify(localList));
+                    } catch (e) {
+                        console.warn("로컬 백업 실패:", e);
+                    }
                 }
 
                 // Populate Modal Summary

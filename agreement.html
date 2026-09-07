@@ -198,14 +198,30 @@
             }
 
             try {
+                const agreementData = {
+                    company: company,
+                    name: name,
+                    email: email,
+                    message: message,
+                    source: 'web_agreement'
+                };
+
                 if (window.kypiFirebase && window.kypiFirebase.saveAgreement) {
-                    await window.kypiFirebase.saveAgreement({
-                        company: company,
-                        name: name,
-                        email: email,
-                        message: message,
-                        source: 'web_agreement'
-                    });
+                    await window.kypiFirebase.saveAgreement(agreementData);
+                } else {
+                    try {
+                        const localRaw = localStorage.getItem('kypi_stored_agreements');
+                        const localList = localRaw ? JSON.parse(localRaw) : [];
+                        localList.unshift({
+                            id: 'agree_' + Date.now(),
+                            ...agreementData,
+                            createdAt: new Date().toISOString(),
+                            _storage: 'local'
+                        });
+                        localStorage.setItem('kypi_stored_agreements', JSON.stringify(localList));
+                    } catch (e) {
+                        console.warn("로컬 백업 실패:", e);
+                    }
                 }
                 alert('협약 제안이 성공적으로 접수되었습니다.\n담당자가 검토 후 기재해주신 이메일로 신속히 회신드리겠습니다.');
                 document.getElementById('agreementForm').reset();
