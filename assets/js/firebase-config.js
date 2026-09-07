@@ -46,20 +46,18 @@ window.kypiFirebase = {
   // 관리자용: 참가 신청서 목록 조회
   getApplications: async function() {
     if (!db) throw new Error("Firebase Firestore가 초기화되지 않았습니다.");
-    try {
-      const snap = await db.collection("applications").orderBy("createdAt", "desc").get();
-      return snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    } catch (e) {
-      // 인덱스 미생성 등 예외 시 단순 get 후 프론트에서 정렬
-      console.warn("orderBy fallback to simple get", e);
-      const snap = await db.collection("applications").get();
-      const list = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      return list.sort((a, b) => {
-        const timeA = a.createdAt ? (a.createdAt.toMillis ? a.createdAt.toMillis() : (a.createdAt.seconds * 1000)) : 0;
-        const timeB = b.createdAt ? (b.createdAt.toMillis ? b.createdAt.toMillis() : (b.createdAt.seconds * 1000)) : 0;
-        return timeB - timeA;
-      });
-    }
+    const snap = await db.collection("applications").get();
+    const list = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    return list.sort((a, b) => {
+      const getMs = (item) => {
+        if (!item || !item.createdAt) return 0;
+        if (typeof item.createdAt.toMillis === 'function') return item.createdAt.toMillis();
+        if (item.createdAt.seconds) return item.createdAt.seconds * 1000;
+        const d = new Date(item.createdAt);
+        return isNaN(d.getTime()) ? 0 : d.getTime();
+      };
+      return getMs(b) - getMs(a);
+    });
   },
 
   // 관리자용: 참가 신청서 삭제
@@ -71,19 +69,18 @@ window.kypiFirebase = {
   // 관리자용: 협약 제안서 목록 조회
   getAgreements: async function() {
     if (!db) throw new Error("Firebase Firestore가 초기화되지 않았습니다.");
-    try {
-      const snap = await db.collection("agreements").orderBy("createdAt", "desc").get();
-      return snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    } catch (e) {
-      console.warn("orderBy fallback to simple get", e);
-      const snap = await db.collection("agreements").get();
-      const list = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      return list.sort((a, b) => {
-        const timeA = a.createdAt ? (a.createdAt.toMillis ? a.createdAt.toMillis() : (a.createdAt.seconds * 1000)) : 0;
-        const timeB = b.createdAt ? (b.createdAt.toMillis ? b.createdAt.toMillis() : (b.createdAt.seconds * 1000)) : 0;
-        return timeB - timeA;
-      });
-    }
+    const snap = await db.collection("agreements").get();
+    const list = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    return list.sort((a, b) => {
+      const getMs = (item) => {
+        if (!item || !item.createdAt) return 0;
+        if (typeof item.createdAt.toMillis === 'function') return item.createdAt.toMillis();
+        if (item.createdAt.seconds) return item.createdAt.seconds * 1000;
+        const d = new Date(item.createdAt);
+        return isNaN(d.getTime()) ? 0 : d.getTime();
+      };
+      return getMs(b) - getMs(a);
+    });
   },
 
   // 관리자용: 협약 제안서 삭제
