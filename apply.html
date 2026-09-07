@@ -1011,7 +1011,7 @@
                 // Populate Modal Summary
                 const summaryContainer = document.getElementById('modalSummaryInfo');
                 summaryContainer.innerHTML = `
-                    <div><strong>• 신청자:</strong> ${name} (${age}세 / ${gender})</div>
+                    <div><strong>• 신청자:</strong> ${maskName(name)} (${age}세 / ${gender})</div>
                     <div><strong>• 현재 상태:</strong> ${status}</div>
                     <div><strong>• 관심 연구 주제:</strong> <span style="color:#004b87; font-weight:bold;">${topic}</span></div>
                     <div><strong>• 약물 복용 여부:</strong> ${med}</div>
@@ -1034,6 +1034,20 @@
                     submitBtn.innerText = originalBtnText;
                 }
             }
+        }
+
+        // Name Masking Helper
+        function maskName(name) {
+            if (!name) return '-';
+            name = String(name).trim();
+            if (name.length <= 1) return name;
+            if (name.length === 2) {
+                return name[0] + 'O';
+            }
+            if (name.length === 3) {
+                return name[0] + 'O' + name[2];
+            }
+            return name[0] + 'O'.repeat(name.length - 2) + name[name.length - 1];
         }
 
         // Privacy Detail Toggle
