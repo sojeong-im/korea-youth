@@ -449,7 +449,7 @@ service cloud.firestore {
     <!-- Firebase SDK (v10 compat) -->
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-    <script src="assets/js/firebase-config.js?v=202609080235"></script>
+    <script src="assets/js/firebase-config.js?v=20260908_0305"></script>
 
     <script>
         const ADMIN_PASSWORD = "00347";
@@ -618,25 +618,27 @@ service cloud.firestore {
 
         // Data Loader
         async function loadDashboardData() {
+            // 1. 즉시 렌더링 (화면 멈춤 방지)
+            renderApplications(rawApplications);
+            renderAgreements(rawAgreements);
+            updateStats();
+
             if (!window.kypiFirebase) return;
 
-            // Load Applications
+            // 2. 서버 데이터 비동기 로드 및 화면 갱신
             try {
                 rawApplications = await window.kypiFirebase.getApplications();
-                renderApplications(rawApplications);
             } catch (err) {
                 console.error("신청서 불러오기 오류:", err);
-                renderApplications(rawApplications);
             }
+            renderApplications(rawApplications);
 
-            // Load Agreements
             try {
                 rawAgreements = await window.kypiFirebase.getAgreements();
-                renderAgreements(rawAgreements);
             } catch (err) {
                 console.error("협약 제안서 불러오기 오류:", err);
-                renderAgreements(rawAgreements);
             }
+            renderAgreements(rawAgreements);
 
             updateStats();
             updateStorageBanner();
