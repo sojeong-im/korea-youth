@@ -280,9 +280,6 @@
                     <button type="button" class="btn btn-default" onclick="loadDashboardData()" style="height: 42px; font-weight: 600; border-radius: 8px;">
                         🔄 새로고침
                     </button>
-                    <button type="button" class="btn btn-success" onclick="exportApplicationsToCSV()" style="height: 42px; font-weight: 600; border-radius: 8px; margin-left: 6px;">
-                        📥 엑셀(CSV) 다운로드
-                    </button>
                 </div>
             </div>
 
@@ -324,9 +321,6 @@
                 <div class="col-xs-12 col-sm-6 text-right">
                     <button type="button" class="btn btn-default" onclick="loadDashboardData()" style="height: 42px; font-weight: 600; border-radius: 8px;">
                         🔄 새로고침
-                    </button>
-                    <button type="button" class="btn btn-success" onclick="exportAgreementsToCSV()" style="height: 42px; font-weight: 600; border-radius: 8px; margin-left: 6px;">
-                        📥 엑셀(CSV) 다운로드
                     </button>
                 </div>
             </div>
@@ -714,71 +708,7 @@
             }
         }
 
-        // CSV Exporter (UTF-8 BOM to prevent Excel Korean character break)
-        function exportApplicationsToCSV() {
-            if (rawApplications.length === 0) {
-                alert("내보낼 신청서 데이터가 없습니다.");
-                return;
-            }
 
-            const headers = ["접수일시", "신청자명", "나이", "성별", "연락처", "현재상태", "관심연구주제", "약물복용", "희망장소", "희망일정", "희망시간대", "개인정보동의", "데이터활용동의"];
-            const rows = rawApplications.map(item => {
-                const datesStr = (item.preferredDates && item.preferredDates.length) ? item.preferredDates.join('; ') : (item.preferredDates || '');
-                return [
-                    `"${formatTimestamp(item.createdAt)}"`,
-                    `"${(item.name || '').replace(/"/g, '""')}"`,
-                    `"${item.age || ''}"`,
-                    `"${item.gender || ''}"`,
-                    `"${item.phone || ''}"`,
-                    `"${(item.status || '').replace(/"/g, '""')}"`,
-                    `"${(item.topic || '').replace(/"/g, '""')}"`,
-                    `"${(item.medication || '').replace(/"/g, '""')}"`,
-                    `"${(item.location || '').replace(/"/g, '""')}"`,
-                    `"${datesStr.replace(/"/g, '""')}"`,
-                    `"${(item.preferredTime || '').replace(/"/g, '""')}"`,
-                    `"${item.privacyAgreed ? '동의' : '미동의'}"`,
-                    `"${item.dataAgreed ? '동의' : '미동의'}"`
-                ];
-            });
-
-            const csvContent = "\uFEFF" + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement("a");
-            link.setAttribute("href", url);
-            link.setAttribute("download", `KYPI_참가신청서_${new Date().toISOString().slice(0,10)}.csv`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-
-        function exportAgreementsToCSV() {
-            if (rawAgreements.length === 0) {
-                alert("내보낼 협약 데이터가 없습니다.");
-                return;
-            }
-
-            const headers = ["접수일시", "기관/기업명", "담당자성명/직급", "회신이메일", "제안내용"];
-            const rows = rawAgreements.map(item => {
-                return [
-                    `"${formatTimestamp(item.createdAt)}"`,
-                    `"${(item.company || '').replace(/"/g, '""')}"`,
-                    `"${(item.name || '').replace(/"/g, '""')}"`,
-                    `"${(item.email || '').replace(/"/g, '""')}"`,
-                    `"${(item.message || '').replace(/"/g, '""')}"`
-                ];
-            });
-
-            const csvContent = "\uFEFF" + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement("a");
-            link.setAttribute("href", url);
-            link.setAttribute("download", `KYPI_협약제안_${new Date().toISOString().slice(0,10)}.csv`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
 
         function escapeHtml(str) {
             if (!str) return '';
