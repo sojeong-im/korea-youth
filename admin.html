@@ -131,7 +131,21 @@
             margin-top: 16px;
             border: 1px solid #edf2f7;
             border-radius: 10px;
-            overflow: hidden;
+            overflow-x: auto;
+        }
+        .table-responsive::-webkit-scrollbar {
+            height: 10px;
+        }
+        .table-responsive::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 5px;
+        }
+        .table-responsive::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 5px;
+        }
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
         }
         .table-custom {
             margin-bottom: 0;
@@ -326,22 +340,27 @@
                 </div>
             </div>
 
+            <div style="font-size: 13px; color: #475569; margin-top: 10px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                <span>📌 <strong>체크한 희망 일자 및 시간대</strong>가 신청자 바로 옆(4~5열)에 즉시 표시됩니다. (화면을 좌우로 스크롤하여 상세 항목 확인 가능)</span>
+                <span style="font-size: 12px; color: #94a3b8;">* [상세] 버튼을 누르면 전체 상세 정보 팝업이 열립니다.</span>
+            </div>
+
             <div class="table-responsive">
                 <table class="table table-custom table-hover" id="appsTable">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>접수 일시</th>
-                            <th>신청자</th>
-                            <th>나이/성별</th>
-                            <th>연락처</th>
-                            <th>현재 상태</th>
-                            <th>관심 연구 주제</th>
-                            <th style="background:#eff6ff; color:#1d4ed8; font-weight:700;">📅 희망 일자</th>
-                            <th style="background:#f0fdf4; color:#15803d; font-weight:700;">⏰ 희망 시간대</th>
-                            <th>희망 장소</th>
-                            <th>약물 복용</th>
-                            <th style="text-align: center;">관리</th>
+                            <th style="width: 45px;">#</th>
+                            <th style="width: 115px;">접수 일시</th>
+                            <th style="width: 85px;">신청자</th>
+                            <th style="background:#eff6ff; color:#1d4ed8; font-weight:800; min-width: 140px;">📅 희망 일자</th>
+                            <th style="background:#f0fdf4; color:#15803d; font-weight:800; min-width: 135px;">⏰ 희망 시간대</th>
+                            <th style="width: 125px;">연락처</th>
+                            <th style="width: 85px;">현재 상태</th>
+                            <th style="width: 95px;">나이/성별</th>
+                            <th style="min-width: 180px;">관심 연구 주제</th>
+                            <th style="width: 80px;">약물 복용</th>
+                            <th style="width: 120px;">희망 장소</th>
+                            <th style="text-align: center; width: 95px;">관리</th>
                         </tr>
                     </thead>
                     <tbody id="appsTableBody">
@@ -839,16 +858,16 @@ service cloud.firestore {
                 return `
                     <tr>
                         <td style="color:#94a3b8; font-weight:600;">${index + 1}</td>
-                        <td style="white-space:nowrap; font-size:12.5px; color:#64748b;">${formatTimestamp(item.createdAt)}</td>
-                        <td><strong>${escapeHtml(maskName(item.name))}</strong></td>
-                        <td>${item.age ? item.age + '세' : '-'} / ${escapeHtml(item.gender || '-')}</td>
-                        <td><a href="tel:${escapeHtml(item.phone || '')}" style="color:#004b87; font-weight:600;">${escapeHtml(item.phone || '-')}</a></td>
-                        <td><span class="badge-status">${escapeHtml(item.status || '-')}</span></td>
-                        <td style="color:#004b87; font-weight:600; font-size:12.5px; white-space:nowrap;">${escapeHtml(item.topic || '-')}</td>
-                        <td style="font-size:12.5px; line-height:1.5;">${datesHtml}</td>
-                        <td style="font-size:12.5px;">${timeHtml}</td>
-                        <td style="font-size:12.5px; color:#64748b;">${escapeHtml(item.location || '-')}</td>
-                        <td style="font-size:12.5px;">${escapeHtml(item.medication || '-')}</td>
+                        <td style="white-space:nowrap; font-size:12px; color:#64748b;">${formatTimestamp(item.createdAt)}</td>
+                        <td style="white-space:nowrap;"><strong style="font-size:14px; color:#0f172a;">${escapeHtml(maskName(item.name))}</strong></td>
+                        <td style="font-size:12px; line-height:1.4;">${datesHtml}</td>
+                        <td style="font-size:12px;">${timeHtml}</td>
+                        <td style="white-space:nowrap;"><a href="tel:${escapeHtml(item.phone || '')}" style="color:#004b87; font-weight:700;">${escapeHtml(item.phone || '-')}</a></td>
+                        <td style="white-space:nowrap;"><span class="badge-status">${escapeHtml(item.status || '-')}</span></td>
+                        <td style="white-space:nowrap; font-size:12.5px;">${item.age ? item.age + '세' : '-'} / ${escapeHtml(item.gender || '-')}</td>
+                        <td style="color:#004b87; font-weight:500; font-size:12px; max-width:220px; word-break:keep-all; line-height:1.4;" title="${escapeHtml(item.topic || '')}">${escapeHtml(item.topic || '-')}</td>
+                        <td style="font-size:12px; color:#64748b; white-space:nowrap;">${escapeHtml(item.medication || '-')}</td>
+                        <td style="font-size:12px; color:#64748b; white-space:nowrap;">${escapeHtml(item.location || '-')}</td>
                         <td style="text-align: center; white-space: nowrap;">
                             <button class="btn btn-default btn-action-sm" onclick="showAppDetail('${item.id}')">상세</button>
                             <button class="btn btn-danger btn-action-sm" onclick="deleteAppItem('${item.id}')">삭제</button>
