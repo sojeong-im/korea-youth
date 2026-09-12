@@ -303,6 +303,13 @@ window.kypiFirebase = {
     return true;
   },
 
+  // 전체 데이터 초기화 및 삭제 이력 복원
+  resetAllHistory: function() {
+    localStorage.removeItem('kypi_deleted_applications');
+    localStorage.removeItem('kypi_deleted_agreements');
+    return true;
+  },
+
   // 실시간 구독 및 3초 자동 폴링
   subscribeApplications: function(onUpdate) {
     const storageHandler = () => {
